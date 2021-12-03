@@ -261,8 +261,28 @@
                                 <h4>  <small> <b>TRANSACTION HANDLER</b> </small>  <br> Registrar <?php echo ($trans['priority_status'] == 1 ? "(Priority)" : ""); ?></h4>
                                 <h4>  <small> <b>TRANSACTION TYPE</b> </small>  <br> <?php echo $trans['transaction_name']; ?></h4>
                                 <h4>  <small> <b>SCHEDULED DATE</b> </small>  <br> <?php echo $trans['sched_date']; ?></h4> <br>
-                                  <a href="<?php echo base_url() . 'visitor-registrar/delete/' . $trans['id']; ?>" class="btn btn-danger" style="color:white">CANCEL APPOINTMENT</a>
-                            </div>
+                                  <div class="modal fade" id="cancel_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                          Are you sure you want to cancel this appointment?  
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary text-white" data-dismiss="modal">No</button>
+                                          <a href="<?php echo base_url() . 'visitor-registrar/delete/' . $trans['id']; ?>" class="btn btn-danger" style="color:white">Yes</a>
+                                         </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <button data-toggle="modal" type="button" data-target="#cancel_modal"class="btn btn-danger btn-sm text-white" id="btnconfimation-modal" >CANCEL APPOINTMENT</button>
+                                
+                          </div>
                         </div>
                     </div>
                     <?php
@@ -276,7 +296,7 @@
                                 <div class="form-group mb-4">
                                     <label class="col-sm-12">Choose Transaction</label>
                                     <div class="col-sm-12 border-bottom">
-                                        <select class="form-select shadow-none p-0 border-0 form-control-line" name="transaction">
+                                        <select class="form-select shadow-none p-0 border-0 form-control-line" id="selecttransaction" name="transaction">
                                           <option value="">-- Select Transaction --</option>
                                           <option name="Official Transcript of Records (TOR)">Official Transcript of Records (TOR)</option>
                                           <option name="Certificate of Good Moral">Certificate of Good Moral</option>
@@ -300,11 +320,35 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group" style="margin:0">
-                                    <div class="col-sm-12">
-                                        <button class="btn btn-primary">CREATE APPOINTMENT</button>
+                                <?php if(strtotime(date('h:i:s a')) >= strtotime('8:00 AM')&&strtotime(date('h:i:s a')) <= strtotime('4:00 PM')){?>
+                                <button data-toggle="modal" type="button" data-target="#view_modal"class="btn btnview btn-info btn-sm" id="btnconfimation-modal" style="background-color:#707cd2; color:white;display:none;" >CREATE APPOINTMENT</button>
+                                <?php }else{ ?>
+                                  <div class="col-12 border-danger">
+                                    <div class="alert alert-danger" role="alert">
+                                      Appointment Cut-Off! You can set appointment tommorrow from 8:00 AM to 4:00 PM
                                     </div>
                                 </div>
+                                <?php } ?>
+                                  <div class="modal fade" id="view_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                          Cashier/Registrar Transactions will only be available from 8:00 AM until 4:00 PM. If you failed to come to school within the office hours,
+                                          your ticket will be re-scheduled for the next day. Queue ticket will only be valid for 48 hours. Would you like to proceed?
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary text-white" data-dismiss="modal">No</button>
+                                          <button type="submit" id="proceed-yes" class="btn btn-primary">Yes</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
                                 <?php echo form_close();?>
                             </div>
                         </div>
@@ -355,6 +399,8 @@
     <script src="<?php echo base_url() . "assets/new/"; ?>plugins/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="<?php echo base_url() . "assets/new/"; ?>bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="<?php echo base_url() . "assets/new/"; ?>js/app-style-switcher.js"></script>
     <script src="<?php echo base_url() . "assets/new/"; ?>plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"></script>
     <!--Wave Effects -->
@@ -362,6 +408,14 @@
     <!--Menu sidebar -->
     <script src="<?php echo base_url() . "assets/new/"; ?>js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
+    <script>
+      $("#selecttransaction").on('change',function(){
+        if($("#selecttransaction").val()!=""){
+          $("#btnconfimation-modal").css('display','block');
+        }
+     //   alert("@3");
+      });
+    </script>
     <script src="<?php echo base_url() . "assets/new/"; ?>js/custom.js"></script>
     <!--This page JavaScript -->
     <!--chartis chart-->
