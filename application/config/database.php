@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
-	'database' => 'sti_ela',
+	'hostname' => getenv('db_host_name'),
+	'username' => getenv('db_username'),
+	'password' => getenv('db_password'),
+	'database' => getent('db_name'),
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
