@@ -343,7 +343,6 @@ t --><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/po
     <!--Wave Effects -->
     <script>
       $("#btnconfimationcancel-modal").click(function(){
-        alert("@#");
       });
     </script>
     <script src="<?php echo base_url() . "assets/new/"; ?>js/waves.js"></script>
