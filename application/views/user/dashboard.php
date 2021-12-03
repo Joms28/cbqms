@@ -328,7 +328,7 @@
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-            <footer class="footer text-center"> 2021 ©  sitename.com
+            <footer class="footer text-center"> 2021 ©  cloudqms.live
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
@@ -348,6 +348,7 @@
     <script src="<?php echo base_url() . "assets/new/"; ?>js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="<?php echo base_url() . "assets/new/"; ?>js/custom.js"></script>
+    <script src="<?= base_url('assets/new/js/pages\dasboards/dashboard.js'); ?>"></script>
 </body>
 
 </html>
