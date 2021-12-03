@@ -1,5 +1,0 @@
-RewriteEngine on
-RewriteCond $1 !^([a-zA-z0-9/])
-RewriteRule ^(.*)$ index.php [L]
-RewriteCond $1 !^(index.php|system|assets)
-RewriteRule ^(.*)$ index.php/$1 [L]
