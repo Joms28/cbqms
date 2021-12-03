@@ -252,9 +252,48 @@
                                 <h4>  <small> <b>TRANSACTION TYPE</b> </small>  <br> <?php echo $trans['transaction_name']; ?></h4>
                                 <h4>  <small> <b>SCHEDULED DATE</b> </small>  <br> <?php echo $trans['sched_date']; ?></h4> <br>
                                 <a href="<?php echo base_url() . 'bleep/' . $trans['id'] . ""; ?>" class="btn btn-success" style="color:white">CALL</a>
-                                <a href="<?php echo base_url() . 'employee-appointment/' . $trans['id'] . "/complete"; ?>" class="btn btn-info" style="color:white">COMPLETE</a>
-                                <a href="<?php echo base_url() . 'employee-appointment/' . $trans['id'] . "/cancel"; ?>" class="btn btn-danger" style="color:white">CANCEL</a>
-                            </div>
+                                <div class="modal fade" id="complete_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                          Are you sure you want to complete this appointment?  
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary text-white" data-dismiss="modal">No</button>
+                                          <a href="<?php echo base_url() . 'employee-appointment/' . $trans['id'] . "/complete"; ?>" class="btn btn-info" style="color:white">Yes</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <button data-toggle="modal" type="button" data-target="#complete_modal"class="btn btn-info text-white" id="btnconfimation-modal" >COMPLETE</button>
+                                  <div class="modal fade" id="cancel_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                          Are you sure you want to cancel this appointment?  
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary text-white" data-dismiss="modal">No</button>
+                                          <a href="<?php echo base_url() . 'employee-appointment/' . $trans['id'] . "/cancel"; ?>" class="btn btn-danger" style="color:white">Yes</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <button data-toggle="modal" type="button" data-target="#cancel_modal"class="btn btn-danger text-white" id="btnconfimationcancel-modal" >CANCEL</button>
+                                
+                              </div>
                         </div>
                     </div>
                     <!-- Column -->
@@ -297,10 +336,16 @@
     <!-- ============================================================== -->
     <script src="<?php echo base_url() . "assets/new/"; ?>plugins/bower_components/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="<?php echo base_url() . "assets/new/"; ?>bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="<?php echo base_url() . "assets/new/"; ?>js/app-style-switcher.js"></script>
+    <!-- <script src="<?php echo base_url() . "assets/new/"; ?>bootstrap/dist/js/bootstrap.bundle.min.js"></script><script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+t --><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="<?php echo base_url() . "assets/new/"; ?>plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"></script>
     <!--Wave Effects -->
+    <script>
+      $("#btnconfimationcancel-modal").click(function(){
+        alert("@#");
+      });
+    </script>
     <script src="<?php echo base_url() . "assets/new/"; ?>js/waves.js"></script>
     <!--Menu sidebar -->
     <script src="<?php echo base_url() . "assets/new/"; ?>js/sidebarmenu.js"></script>
