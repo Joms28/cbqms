@@ -11,7 +11,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="<?php echo base_url() . "assets/new/"; ?>plugins/images/favicon.png">
     <link href="<?php echo base_url() . "assets/new/"; ?>css/style.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js'></script>
+    <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js'></script>        -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.1/chart.min.js" integrity="sha512-O2fWHvFel3xjQSi9FyzKXWLTvnom+lOYR/AUEThL/fbP4hv1Lo5LCFCGuTXBRyKC4K4DJldg5kxptkgXAzUpvA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.0.0/chartjs-plugin-datalabels.min.js" integrity="sha512-R/QOHLpV1Ggq22vfDAWYOaMd5RopHrJNMxi8/lJu8Oihwi4Ho4BRFeiMiCefn9rasajKjnx9/fTQ/xkWnkDACg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body>
@@ -164,28 +166,56 @@
                 </div>
 
                 <div class="row">
-
                     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                         <div style="border-radius:20px;color:#26B0CF" class="white-box shadow-sm" >
                             <h2>CASHIER</h2>
                               <script>
-                                  $(document).ready(function() {
+                                  $(document).ready(function() {                                      
                                       var ctx = $("#chart-line");
                                       var myLineChart = new Chart(ctx, {
                                         type: 'pie',
+                                        plugins: [ChartDataLabels],
                                         data: {
-                                            labels: ["Completed", "Cancelled", "Pending"],
+                                            labels: ["Completed", "Cancelled", "Pending"],                                                                                        
                                             datasets: [{
-                                                data: [<?php echo $transaction_cashier_complete; ?>,<?php echo $transaction_cashier_cancel; ?>, <?php echo $transaction_cashier_pending; ?>],
-                                                backgroundColor: ["#01579B", "#26B0CF","#C3D3DE"]
+                                                data: [<?php echo $transaction_cashier_complete; ?>,<?php echo $transaction_cashier_cancel; ?>, <?php echo $transaction_cashier_pending; ?>],                                                                                                
+                                                backgroundColor: ["#01579B", "#26B0CF","#C3D3DE"],                                                    
                                             }]
-                                          },
-                                          options: {
-                                            legend: {
-                                                display: false
-                                            }
-                                          }
-                                      });
+                                        },
+                                        options: {                                                                                                    
+                                            plugins:{
+                                                legend: {
+                                                    display: false
+                                                },  
+                                                tooltip: {
+                                                    enabled: true,
+                                                }, 
+                                                datalabels: {                                                                                                   
+                                                    formatter: (value, ctx) => {
+                                                        let sum = 0;
+                                                        let dataArr = ctx.chart.data.datasets[0].data;
+                                                        dataArr.map(data => {
+                                                            sum += data;
+                                                        });
+                                                        let percentage = (value*100 / sum).toFixed(2);                                                           
+                                                        if(percentage > 0){
+                                                            return percentage + "%";
+                                                        }
+                                                        else{
+                                                            return '';
+                                                        }                                                        
+                                                    },
+                                                    color: '#fff',
+                                                    font:{
+                                                        size: 15,
+                                                    }                                                    
+                                                },                                               
+                                            },
+                                            
+                                        },
+                                        
+                                    });
+                                    
                                   });
                               </script>
 
@@ -212,8 +242,9 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                  <div class="col-sm-6" style="margin-top:30px">
+                                <div class="row">     
+                                    
+                                <div class="col-sm-4" style="margin-top:30px">
 
                                     <div style="border:1px solid #01579B; width:50px;margin:0 auto;padding:10px;background:#01579B; border-radius:10px ">
                                       <center>
@@ -221,35 +252,52 @@
                                       </center>
                                     </div>
 
-                                    <center style="padding-top:10px">
+                                    <center style="padding-top:10px">                                      
                                       <span style="font-size: 15px;color:#26B0CF"><strong>Completed Queues</strong></span>
                                     </center>
                                     <br>
                                   </div>
 
-                                  <div class="col-sm-6" style="margin-top:30px">
+                                  <div class="col-sm-4" style="margin-top:30px">
                                     <div style="border:1px solid #26B0CF; width:50px;margin:0 auto;padding:10px;background:#26B0CF; border-radius:10px ">
                                       <center>
                                         <span style="font-size: large;color:white"><strong><?php echo $transaction_cashier_cancel; ?></strong></span>
                                       </center>
                                     </div>
 
-                                    <center style="padding-top:10px">
+                                    <center style="padding-top:10px">                                      
                                       <span style="font-size: 15px;color:#26B0CF"><strong>Cancelled Queues</strong></span>
                                     </center>
                                     <br>
                                   </div>
+                                  
+                                  <div class="col-sm-4" style="margin-top:30px">
+                                    <div style="border:1px solid #01579B; width:50px;margin:0 auto;padding:10px;background:#C3D3DE; border-radius:10px ">
+                                      <center>
+                                        <span style="font-size: large;color:white;"><strong><?php echo $transaction_cashier_pending; ?></strong></span>
+                                      </center>
+                                    </div>
+
+                                    <center style="padding-top:10px">                                      
+                                      <span style="font-size: 15px;color:#26B0CF"><strong>Pending Queues</strong></span>
+                                    </center>
+                                    <br>
+                                  </div>
+
+                                  
                                 </div>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                         <div style="border-radius:20px;color:#26B0CF" class="white-box shadow-sm" >
-                            <h2>REGISTRAR</h2>
+                            <h2>REGISTRAR</h2>                                
+
                               <script>
                                   $(document).ready(function() {
                                       var ctx = $("#chart-lines");
                                       var myLineChart = new Chart(ctx, {
                                         type: 'pie',
+                                        plugins: [ChartDataLabels],
                                         data: {
                                             labels: ["Completed", "Cancelled", "Pending"],
                                             datasets: [{
@@ -258,9 +306,35 @@
                                             }]
                                           },
                                           options: {
-                                            legend: {
-                                                display: false
-                                            }
+                                            responsive: true,
+                                            plugins:{
+                                                legend: {
+                                                    display: false
+                                                },  
+                                                tooltip: {
+                                                    enabled: true,
+                                                }, 
+                                                datalabels: {                                                                                                   
+                                                    formatter: (value, ctx) => {
+                                                        let sum = 0;
+                                                        let dataArr = ctx.chart.data.datasets[0].data;
+                                                        dataArr.map(data => {
+                                                            sum += data;
+                                                        });
+                                                        let percentage = (value*100 / sum).toFixed(2);                                                           
+                                                        if(percentage > 0){
+                                                            return percentage + "%";
+                                                        }
+                                                        else{
+                                                            return '';
+                                                        }                                                        
+                                                    },
+                                                    color: '#fff',
+                                                    font:{
+                                                        size: 15,
+                                                    }                                                    
+                                                },                                                      
+                                            },
                                           }
                                       });
                                   });
@@ -289,8 +363,9 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                  <div class="col-sm-6" style="margin-top:30px">
+                                <div class="row">                                  
+
+                                  <div class="col-sm-4" style="margin-top:30px">
 
                                     <div style="border:1px solid #01579B; width:50px;margin:0 auto;padding:10px;background:#01579B; border-radius:10px ">
                                       <center>
@@ -298,25 +373,40 @@
                                       </center>
                                     </div>
 
-                                    <center style="padding-top:10px">
+                                    <center style="padding-top:10px">                                        
                                       <span style="font-size: 15px;color:#26B0CF"><strong>Completed Queues</strong></span>
                                     </center>
                                     <br>
                                   </div>
 
-                                  <div class="col-sm-6" style="margin-top:30px">
+                                  <div class="col-sm-4" style="margin-top:30px">
                                     <div style="border:1px solid #26B0CF; width:50px;margin:0 auto;padding:10px;background:#26B0CF; border-radius:10px ">
                                       <center>
                                         <span style="font-size: large;color:white"><strong><?php echo $transaction_registrar_cancel; ?></strong></span>
                                       </center>
                                     </div>
 
-                                    <center style="padding-top:10px">
+                                    <center style="padding-top:10px">                                      
                                       <span style="font-size: 15px;color:#26B0CF"><strong>Cancelled Queues</strong></span>
                                     </center>
                                     <br>
                                   </div>
-                                </div>
+
+                                  <div class="col-sm-4" style="margin-top:30px">
+
+                                    <div style="border:1px solid #01579B; width:50px;margin:0 auto;padding:10px;background:#C3D3DE; border-radius:10px ">
+                                    <center>
+                                        <span style="font-size: large;color:white;"><strong><?php echo $transaction_registrar_pending; ?></strong></span>
+                                    </center>
+                                    </div>
+
+                                    <center style="padding-top:10px">                                    
+                                      <span style="font-size: 15px;color:#26B0CF"><strong>Pending Queues</strong></span>
+                                    </center>
+                                    <br>
+                                  </div>
+
+                                </div>                                
                         </div>
                     </div>
                 </div>
@@ -347,8 +437,7 @@
     <script src="<?php echo base_url() . "assets/new/"; ?>plugins/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="<?php echo base_url() . "assets/new/"; ?>js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
-    <script src="<?php echo base_url() . "assets/new/"; ?>js/custom.js"></script>
-    <script src="<?= base_url('assets/new/js/pages\dasboards/dashboard.js'); ?>"></script>
+    <script src="<?php echo base_url() . "assets/new/"; ?>js/custom.js"></script>    
 </body>
 
 </html>
