@@ -244,57 +244,39 @@ class ElaMainController extends CI_Controller {
         $code = rand(1111,9999);
         $id = $this->main->create_forgot($this->main->check_email($this->input->post('email')),$code);
 
+        $this->load->library('email');
+        $emailConfig = array(
+            'protocol' => 'smtp',
+            'smtp_host' => 'sg2plzcpnl486127.prod.sin2.secureserver.net',
+            'smtp_port' => 587,
+            'smtp_user' => 'support@cloudqms.live',
+            'smtp_pass' => 'Lolomololoko123',
+            'charset' => 'utf-8',
+            'newline'   => "\r\n",
+            'mailtype' => 'html'
+        );
+        $this->email->initialize($emailConfig);
+        $this->email->set_newline("\r\n");  
+        $this->email->from('noreply@cloudqms.com');
+        $this->email->to($this->input->post('email'));
+        $this->email->subject($this->input->post('Password Reset'));
+        $message="Hi User,<br><br>";
+        $message.="If you requested to reset the password for CBQMS account. Use the confirmation below to complete the process.<br><br>";
+        $message.='Code:'.$code.'<br><br>If you didn`t make this request, please ignore this email.';
+        $message.="<br><br>Thanks,<br>STI Sta. Maria Team.";
+        $this->email->message($message);
 
-
-
-        //   $this->load->library('Phpmailer_lib');
-        //   $mail = $this->phpmailer_lib->load();
-
-
-        // /* SMTP configuration */
-        // $mail->isSMTP();
-        // $mail->SMTPDebug = 2;
-        // $mail->Host     = 'sg2plzcpnl487154.prod.sin2.secureserver.net';
-        // $mail->SMTPAuth = false;
-        // $mail->SMTPAutoTLS = false;
-        // $mail->Username = 'support@cbqms.live';
-        // $mail->Password = 'Password1!';
-        // $mail->Port = 465;
-
-        // $mail->setFrom('info@example.com', 'CodexWorld');
-        // $mail->addReplyTo('info@example.com', 'CodexWorld');
-
-        // /* Add a recipient */
-        // $mail->addAddress($this->input->post('email'));
-
-        // /* Add cc or bcc */
-        // $mail->addCC('cc@example.com');
-        // $mail->addBCC('bcc@example.com');
-
-        // /* Email subject */
-        // $mail->Subject = 'Send Email via SMTP using PHPMailer in CodeIgniter';
-
-        // /* Set email format to HTML */
-        // $mail->isHTML(true);
-
-        // /* Email body content */
-        // $mailContent = "<h1>Send HTML Email using SMTP in CodeIgniter</h1>
-        // <p>This is a test email sending using SMTP mail server with PHPMailer.</p>";
-        // $mail->Body = $mailContent;
 
         // /* Send email */
-        // if(!$mail->send()){
-        //     echo 'Mail could not be sent.';
-        //     echo 'Mailer Error: ' . $mail->ErrorInfo;
-        //     exit();
-        // }else{
-        //     echo 'Mail has been sent';
-        //     exit();
-        // }
-
-
-        $this->send($this->input->post('email'),$code);
-        redirect(base_url() . "forgot/verif/" . $id);
+         if(!$this->email->send()){
+            $this->session->set_flashdata('login_error', 'Email Error!');
+             exit();
+         }else{
+          //$this->email->send();
+          //echo $id;
+          redirect(base_url().'forgot/verif/'.$id);
+          exit();
+         }
 
 			} else {
 
