@@ -466,6 +466,7 @@ class ElaMainController extends CI_Controller {
       $this->form_validation->set_rules('fname', 'First Name', 'trim|required|min_length[2]');
       $this->form_validation->set_rules('lname', 'Last Name', 'trim|required|min_length[2]');
       $this->form_validation->set_rules('email', 'Email Address', 'trim|required|min_length[2]');
+      $this->form_validation->set_rules('mobile', 'Phone Number', 'required|min_length[11]|max_length[11]');
 
   		if ($this->form_validation->run() == FALSE)
   		{
