@@ -12,7 +12,7 @@ class ElaMainController extends CI_Controller {
     $this->form_validation->set_rules('fname', 'First Name', 'trim|min_length[2]');
     $this->form_validation->set_rules('lname', 'Last Name', 'trim|min_length[2]');
     $this->form_validation->set_rules('email', 'Email Address', 'trim|min_length[2]|valid_email|is_unique[users.email]');
-    $this->form_validation->set_rules('mobile', 'Mobile Number', 'trim|min_length[2]');
+    $this->form_validation->set_rules('mobile', 'Mobile Number', 'trim|min_length[11]|max_length[11]');
 
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -51,7 +51,7 @@ class ElaMainController extends CI_Controller {
     $this->form_validation->set_rules('fname', 'First Name', 'trim|required|min_length[2]');
     $this->form_validation->set_rules('lname', 'Last Name', 'trim|required|min_length[2]');
     $this->form_validation->set_rules('email', 'Email Address', 'trim|required|min_length[2]|is_unique[users.email]|valid_email');
-    $this->form_validation->set_rules('mobile', 'Mobile Number', 'trim|required|min_length[2]|max_length[11]');
+    $this->form_validation->set_rules('mobile', 'Mobile Number', 'trim|required|min_length[11]|max_length[11]');
 
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -73,7 +73,7 @@ class ElaMainController extends CI_Controller {
     $this->form_validation->set_rules('fname', 'First Name', 'trim|required|min_length[2]');
     $this->form_validation->set_rules('lname', 'Last Name', 'trim|required|min_length[2]');
     $this->form_validation->set_rules('email', 'Email Address', 'trim|required|min_length[2]|is_unique[users.email]|valid_email');
-    $this->form_validation->set_rules('mobile', 'Mobile Number', 'trim|required|min_length[2]|max_length[11]');
+    $this->form_validation->set_rules('mobile', 'Mobile Number', 'trim|required|min_length[11]|max_length[11]');
 
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -92,7 +92,7 @@ class ElaMainController extends CI_Controller {
     $this->form_validation->set_rules('fname', 'First Name', 'trim|required|min_length[2]');
     $this->form_validation->set_rules('lname', 'Last Name', 'trim|required|min_length[2]');
     $this->form_validation->set_rules('email', 'Email Address', 'trim|required|min_length[2]|is_unique[users.email]|valid_email');
-    $this->form_validation->set_rules('mobile', 'Mobile Number', 'trim|required|min_length[2]|max_length[11]');
+    $this->form_validation->set_rules('mobile', 'Mobile Number', 'trim|required|min_length[11]|max_length[11]');
 
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -121,7 +121,7 @@ class ElaMainController extends CI_Controller {
     $this->form_validation->set_rules('fname', 'First Name', 'trim|required|min_length[2]');
     $this->form_validation->set_rules('lname', 'Last Name', 'trim|required|min_length[2]');
     $this->form_validation->set_rules('email', 'Email Address', 'trim|required|min_length[2]|is_unique[users.email]|valid_email');
-    $this->form_validation->set_rules('mobile', 'Mobile Number', 'trim|required|min_length[2]|max_length[11]');
+    $this->form_validation->set_rules('mobile', 'Mobile Number', 'trim|required|min_length[11]|max_length[11]');
     $this->form_validation->set_rules('username', 'Username', 'trim|required|min_length[2]|is_unique[users.username]');
     $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[2]|matches[repassword]|callback_valid_password');
     $this->form_validation->set_rules('repassword', 'Re-Type Password', 'trim|required|min_length[2]');
