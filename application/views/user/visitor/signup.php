@@ -65,8 +65,8 @@
 								</div>
 
 		            <div class="form-group">
-									<label style="color:gray">Mobile Number (optional)</label>
-									<input type="text" class="form-control" name="mobile" <?php echo set_value('mobile'); ?>>
+									<label style="color:gray">Mobile Number<label style="color:red">*</label></label>
+									<input type="text" class="form-control" name="mobile" <?php echo set_value('mobile'); ?> pattern="[0-9]{11}" placeholder="09XXXXXXXXX">
 									<?php echo form_error('mobile', '<small><span style="color:red;font-size: small">', '</strong></small><br>'); ?>
 								</div>
 

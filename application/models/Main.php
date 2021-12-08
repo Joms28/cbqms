@@ -148,9 +148,15 @@ class Main extends CI_Model {
 
   }
 
+  private function set_expiration_date(){
+    $date = date('F j, Y, g:ia');
+    return date("F j, Y",strtotime($date.' + 2 days'));
+  }
+
   public function user_set_appointment_cashier($id) {
 
     $date = date("F j, Y, g:ia");
+    $expires = $this->set_expiration_date();
 
     $data2 = array(
       'closed' => 0,
@@ -162,7 +168,9 @@ class Main extends CI_Model {
       'priority_status' => ($this->input->post('priority') != "0" ? 1 : 0),
       'priority_type' => ($this->input->post('priority') != "0" ? $this->input->post('priority') : 0),
       'updated_at' => $date,
-      'created_at' => $date
+      'created_at' => $date,
+      'expires_at' => $expires,
+      'assigned_queue_num' => $this->create_queue_num($this->input->post('priority'),1),
     );
 
     $this->db->insert('transactions',$data2);
@@ -171,6 +179,7 @@ class Main extends CI_Model {
   public function user_set_appointment_registrar($id) {
 
     $date = date("F j, Y, g:ia");
+    $expires = $this->set_expiration_date();
 
     $data2 = array(
       'closed' => 0,
@@ -182,7 +191,9 @@ class Main extends CI_Model {
       'priority_status' => ($this->input->post('priority') != "0" ? 1 : 0),
       'priority_type' => ($this->input->post('priority') != "0" ? $this->input->post('priority') : 0),
       'updated_at' => $date,
-      'created_at' => $date
+      'created_at' => $date,
+      'expires_at' => $expires,
+      'assigned_queue_num' => $this->create_queue_num($this->input->post('priority'),1),
     );
 
     $this->db->insert('transactions',$data2);
@@ -485,5 +496,45 @@ class Main extends CI_Model {
 
     return $query->num_rows();
 
+  }
+
+  public function get_call($transaction_id){
+    $query = $this->db->where('transaction_id',$transaction_id)->get('transaction_calls');
+
+    return $this->query->row_array();
+  }
+
+  //queue number create
+  public function create_queue_num($priority,$transaction_type){
+
+    $priority_status = $priority != '0' ? 1 : 0;    
+    $priority_prefix = $priority_status == 1 ? 'P' : '';        
+    $transaction_prefix = $transaction_type == 1 ? 'C' : 'R';
+    $transactions_count = $this->db->where('priority_status', $priority_status)->where('transaction_type',$transaction_type)->where('sched_date', date("F j, Y"))->get('transactions')->num_rows();    
+    $pending_transactions = $this->db->where('status',0)->where('closed',0)->where('expires_at',date("F j, Y"))->order_by('queue_num','ASC')->get('pending_transactions')->row_array();
+
+    $transactions_count++;
+
+    $queue_num = $transaction_prefix . $priority_prefix . '-' . sprintf("%04d", $transactions_count);
+
+    if($pending_transactions){ //checks queue num if there are pending transactions 
+      foreach($pending_transactions as $pending){
+        if($pending['queue_num'] == $queue_num){
+          $transactions_count++;
+        }
+      }
+    }
+
+    $queue_num = $transaction_prefix . $priority_prefix . '-' . sprintf("%04d", $transactions_count);
+
+    return $queue_num;
+  }
+
+  public function update_pending_transaction($status,$transaction_id){
+    $info = array(
+      'status' => $status,
+      'closed' => 1
+    );
+    $this->db->where('transaction_id',$transaction_id)->update('pending_transactions',$info);
   }
 }

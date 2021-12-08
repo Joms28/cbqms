@@ -241,7 +241,13 @@
                                     <?php echo ($trans['transaction_type'] == 1 ? "Cashier" : "Registrar"); ?> <br>
                                     <h4><?php echo $trans['transaction_name']; ?></h4><br>
 
-                                    <small> PLEASE TAKE A PICTURE OF YOUR TICKET </small> <br>
+                                    <h4>Your Ticket has Expired</h4>
+                                    <small>You ticket has been called multiple times in the last 48hrs. Please request another ticket for your transaction to be accomodated</small>
+                                      <br><br>
+                                    <button data-toggle="modal" type="button" data-target="#cancel_modal"class="btn btn-primary btn-sm text-white" id="btnconfimation-modal" >CREATE APPOINTMENT</button>
+                                    
+                                    <!--
+                                    <small> PLEASE TAKE A PICTURE OF YOUR TICKET </small> <br> -->
 
                                   </center>
                                 </div>
@@ -280,7 +286,11 @@
                                       </div>
                                     </div>
                                   </div>
+                                  <!--
                                   <button data-toggle="modal" type="button" data-target="#cancel_modal"class="btn btn-danger btn-sm text-white" id="btnconfimation-modal" >CANCEL APPOINTMENT</button>
+                                    -->
+
+                                    
                                 
                           </div>
                         </div>
@@ -378,7 +388,7 @@
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-            <footer class="footer text-center"> 2021 ©  sitename.com
+            <footer class="footer text-center"> 2021 ©  cloudqms.live
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->

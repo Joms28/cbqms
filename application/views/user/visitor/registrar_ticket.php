@@ -105,7 +105,7 @@
                   <h4><?php echo $users['fname'] . " " . $users['lname']; ?></h4>
                   <?php echo $users['mobile']; ?> <br> <br>
                   <?php echo ($trans['transaction_type'] == 1 ? "Cashier" : "Registrar"); ?> <br>
-                  <h4><?php echo $trans['transaction_name']; ?></h4>
+                  <h4><?php echo $trans['transaction_name']; ?></h4>                  
                 </center>
 
               </div>

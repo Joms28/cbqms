@@ -270,10 +270,9 @@
                                     <div class="form-group mb-4">
                                         <label class="col-md-12 p-0">Phone No</label>
                                         <div class="col-md-12  border-bottom p-0">
-                                            <input type="text" name="mobile" value="<?php echo $user['mobile']; ?>"
+                                            <input type="tel" name="mobile" value="<?php echo $user['mobile']; ?>" pattern="[0-9]{11}" placeholder="09XXXXXXXXX" 
                                                 class="form-control p-0 border-0">
-                                        </div> <?php echo form_error('mobile', '<small><span style="color:red;font-size: small">', '</strong></small>'); ?>
-                                   
+                                        </div>
                                     </div>
                                     <div class="form-group" style="margin:0">
                                         <div class="col-sm-12">
@@ -310,7 +309,7 @@
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-            <footer class="footer text-center"> 2021 ©  sitename.com
+            <footer class="footer text-center"> 2021 ©  cloudqms.live
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->

@@ -227,7 +227,7 @@
                     </div>
                 </div>
             </div>
-            <footer class="footer text-center"> 2021 ©  sitename.com
+            <footer class="footer text-center"> 2021 ©  cloudqms.live
             </footer>
         </div>
     </div>

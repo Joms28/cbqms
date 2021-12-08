@@ -23,7 +23,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Site Name</a>
+            <a class="navbar-brand" href="#">Cloud QMS</a>
           </div>
     </div>
   </div>

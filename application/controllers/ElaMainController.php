@@ -41,6 +41,8 @@ class ElaMainController extends CI_Controller {
   public function bleep($id) {
 
     $this->main->update_bleep(1);
+    
+    $calls = $this->main->get_call_count();
 
     redirect(base_url() . "employee-appointment/" . $id);
 
@@ -460,13 +462,13 @@ class ElaMainController extends CI_Controller {
     }
 
     $session_id = $this->session->userdata('user_id');
-    $data['user'] = $this->main->user_walkin_get_user($session_id);
+    $data['user'] = $this->main->user_walkin_get_user($session_id);    
 
     if (isset($_POST['editProfile'])) {
       $this->form_validation->set_rules('fname', 'First Name', 'trim|required|min_length[2]');
       $this->form_validation->set_rules('lname', 'Last Name', 'trim|required|min_length[2]');
-      $this->form_validation->set_rules('email', 'Email Address', 'trim|required|min_length[2]');
-      $this->form_validation->set_rules('mobile', 'Phone Number', 'min_length[11]|max_length[11]');
+      $this->form_validation->set_rules('email', 'Email Address', 'trim|required|valid_email');  
+      $this->form_validation->set_rules('mobile', 'Phone No.', 'trim|min_length[11]');
 
   		if ($this->form_validation->run() == FALSE)
   		{
@@ -669,8 +671,6 @@ class ElaMainController extends CI_Controller {
     $this->session->sess_destroy();
     redirect(base_url());
   }
-
-
 
 }
 

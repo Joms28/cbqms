@@ -327,7 +327,7 @@
                                                         }
                                                         else{
                                                             return '';
-                                                        }                                                        
+                                                        }
                                                     },
                                                     color: '#fff',
                                                     font:{
