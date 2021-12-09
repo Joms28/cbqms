@@ -9,10 +9,9 @@ class ElaMainController extends CI_Controller {
 
   public function walkin() {
     
-    $this->form_validation->set_rules('fname', 'First Name', 'trim|min_length[2]');
-    $this->form_validation->set_rules('lname', 'Last Name', 'trim|min_length[2]');
-    $this->form_validation->set_rules('email', 'Email Address', 'trim|min_length[2]|valid_email|is_unique[users.email]');
-    $this->form_validation->set_rules('mobile', 'Mobile Number', 'trim|min_length[11]|max_length[11]');
+    $this->form_validation->set_rules('fname', 'First Name', 'required|trim|min_length[2]');
+    $this->form_validation->set_rules('lname', 'Last Name', 'required|trim|min_length[2]');
+    $this->form_validation->set_rules('mobile', 'Mobile Number', 'required|trim|min_length[11]|max_length[11]');
 
 		if ($this->form_validation->run() == FALSE)
 		{

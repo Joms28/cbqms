@@ -38,13 +38,13 @@
     					<?php endif; ?>
 
     						<div class="form-group">
-    							<label>Visitor (Default)</label>
-    							<input type="text" class="form-control" name="lname" value="(Walk-in)" >
+    							<label>Last Name<label style="color:red">*</label></label>
+    							<input type="text" class="form-control" name="lname" value="" >
     							<?php echo form_error('lname', '<small><span style="color:red;font-size: small">', '</strong></small><br>'); ?>
     						</div>
 
                 <div class="form-group">
-    							<label>Name (optional)</label>
+    							<label>First Name<label style="color:red">*</label></label>
     							<input type="text" class="form-control" name="fname" >
     							<?php echo form_error('fname', '<small><span style="color:red;font-size: small">', '</strong></small><br>'); ?>
     						</div>
@@ -52,7 +52,7 @@
                 <input type="hidden" name="email" value="default-email@g.com">
 
                 <div class="form-group">
-    							<label>Mobile Number (optional)</label>
+    							<label>Mobile Number<label style="color:red">*</label></label>
     							<input type="text" class="form-control" name="mobile" >
     							<?php echo form_error('mobile', '<small><span style="color:red;font-size: small">', '</strong></small><br>'); ?>
     						</div>

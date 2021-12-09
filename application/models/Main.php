@@ -83,6 +83,7 @@ class Main extends CI_Model {
       'transaction_name' => $this->input->post('transaction'),
       'priority_status' => ($this->input->post('priority') != "0" ? 1 : 0),
       'priority_type' => ($this->input->post('priority') != "0" ? $this->input->post('priority') : 0),
+      'assigned_queue_num' => $this->create_queue_num($this->input->post('priority'),1),
       'updated_at' => $date,
       'created_at' => $date
     );
@@ -117,7 +118,9 @@ class Main extends CI_Model {
       'priority_status' => ($this->input->post('priority') != "0" ? 1 : 0),
       'priority_type' => ($this->input->post('priority') != "0" ? $this->input->post('priority') : 0),
       'updated_at' => $date,
-      'created_at' => $date
+      'created_at' => $date,
+      'expires_at' => $expires,
+      'assigned_queue_num' => $this->create_queue_num($this->input->post('priority'),1)
     );
     $this->db->insert('transactions',$data2);
     return $id2 = $this->db->insert_id();
