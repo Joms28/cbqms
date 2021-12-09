@@ -21,7 +21,7 @@ $route['admin/setting/password'] = 'Users/admin_user_change_password';
 $route['admin/logout'] = 'Users/logout';
 
 
-$route['login'] = 'MainController/MainController_sign_in';
+$route['login'] = 'MainController/main_sign_in';
 $route['signup'] = 'MainController/MainController_sign_up';
 $route['forgot'] = 'MainController/MainController_forget_password';
 $route['forgot/verif/(:any)'] = 'MainController/MainController_forget_password_verification/$1';
