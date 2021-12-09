@@ -12,11 +12,11 @@ class Employee extends CI_Controller {
     }
     else
     {
-      if($this->main->user_login_employee() ) {
+      if($this->main->user_login_employee() ) {        
 
         $this->session->set_userdata('user_id', $this->main->user_login_employee());
-        $this->session->set_userdata('user_level', 2);
-
+        $this->session->set_userdata('user_level', $this->main->get_employee_data($this->session->user_id)['level']);
+        
         redirect(base_url() . "employee-dashboard");
 
       } else {
@@ -34,15 +34,7 @@ class Employee extends CI_Controller {
 
     if($this->session->userdata('user_level') != null) {
 
-      if($this->session->userdata('user_level') == 1) {
-        redirect(base_url() . "visitor-dashboard");
-      }
-
-      // if($this->session->userdata('user_level') == 2) {
-      //   redirect(base_url() . "employee-dashboard");
-      // }
-
-      if($this->session->userdata('user_level') == 3) {
+      if($this->session->userdata('user_level') == 4) {
         redirect(base_url() . "admin/dashboard");
       }
 
@@ -52,12 +44,19 @@ class Employee extends CI_Controller {
 
     $session_id = $this->session->userdata('user_id');
 
-    $data['user'] = $this->user->get_user($session_id);
-    $data['data_cashiers'] = $this->main->get_dashboard_cashier_data();
-    $data['data_registrars'] = $this->main->get_dashboard_registrar_data();
-    $data['data_priorities'] = $this->main->get_dashboard_priority_data();
+    $current_trans = $this->main->check_if_has_pending_processing($session_id);
 
-    $this->load->view("user/employee/dashboard",$data);
+    if($current_trans != 0){
+      redirect(base_url("employee-appointment/".$current_trans['id']));
+    }
+    else{
+      $data['user'] = $this->user->get_user($session_id);
+      $data['data_cashiers'] = $this->main->get_dashboard_cashier_data();
+      $data['data_registrars'] = $this->main->get_dashboard_registrar_data();
+      $data['data_priorities'] = $this->main->get_dashboard_priority_data();
+  
+      $this->load->view("user/employee/dashboard",$data);
+    }    
   }
 
   public function profile() {
@@ -169,10 +168,15 @@ class Employee extends CI_Controller {
 
     $session_id = $this->session->userdata('user_id');
 
-    $this->main->processAppointment($id,$session_id);    
+    if($this->main->check_if_has_agent_id($id)){
+      $this->session->set_flashdata('respond-process','The transaction is already in process');
+      redirect(base_url("employee-dashboard"));
+    }
+    else{
+      $this->main->processAppointment($id,$session_id);    
 
-    redirect(base_url() . "employee-appointment/".$id);
-
+      redirect(base_url() . "employee-appointment/".$id);
+    }
   }
 
   public function appointmentProcessing($id) {

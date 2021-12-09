@@ -256,7 +256,7 @@
                               </thead>
                             <tbody>                              
                               <?php $counter2 = 0; ?>
-                              <?php foreach($data_priorities as $cashier_priority) { ?>                                
+                              <?php foreach($data_priorities as $cashier_priority) { ?>
                                 <tr>
                                   <td>
                                     <span style="font-size:20px;color:#26B0CF"><?= $cashier_priority['assigned_queue_num']; ?></span>
@@ -295,60 +295,26 @@
                                 </tr>
                               </thead>
                             <tbody>
-                              <?php
-                              $i = 1;
-                              $j = 1;
-                              foreach($data_registrars as $cashier) {
-
-                                if($cashier['closed'] == 0 && $j <= 5) {
-                                ?>
+                            <?php $counter3 = 0; ?>
+                              <?php foreach($data_registrars as $registrar) { ?>                                
                                 <tr>
                                   <td>
-                                    <span style="font-size:20px;color:#26B0CF">R-<?php echo sprintf("%04d", $i)?></span>
+                                    <span style="font-size:20px;color:#26B0CF"><?= $registrar['assigned_queue_num']; ?></span>
                                   </td>
-                                  <td><center>
-                                    <?php
-                                    if($cashier['status'] == 0) {
-
-                                      if($this->main->employee_check_have_transaction($this->session->userdata('user_id'))) {
-                                      ?>
+                                  <td><center>                                  
+                                    <?php if($registrar['agent_id'] == 0) { ?>
+                                      <?php if($counter3 == 0){ ?>
+                                        <a href="<?php echo base_url(); ?>employee-process-appointment/<?php echo $registrar['id']; ?>" class="btn btn-info btn-sm" style="color:white"><b>PROCESS APPOINTMENT</b></a>                                        
+                                      <?php } else {?>                                                                       
+                                        <span style="font-size:20px;color:#26B0CF">Waiting</span></center>
+                                      <?php } ?>
+                                    <?php } else { ?>                                        
                                       <span style="font-size:20px;color:#26B0CF">Waiting</span></center>
-                                      <?php
-                                      } else {
-                                      ?>
-                                      <a href="<?php echo base_url(); ?>employee-process-appointment/<?php echo $cashier['id']; ?>" class="btn btn-info btn-sm" style="color:white"><b>PROCESS APPOINTMENT</b></a>
-                                      <?php
-                                      }
-
-                                    } else if($cashier['status'] == 1){
-
-                                      if($cashier['agent_id'] == $this->session->userdata('user_id')){
-                                      ?>
-
-                                      <a href="<?php echo base_url(); ?>employee-appointment/<?php echo $cashier['id']; ?>" class="btn btn-info btn-sm" style="color:white"><b>VIEW DETAIL</b></a>
-
-                                      <?php
-                                      } else {
-                                      ?>
-
-                                      <span style="font-size:20px;color:#26B0CF">Admitted</span></center>
-
-                                      <?php
-                                      }
-                                      ?>
-
-                                    <?php
-                                    }
-                                    ?>
-
-                                  </td>
+                                    <?php } ?>
+                                  </center></td>
                                 </tr>
-                                <?php
-                                $j++;
-                                }
-                                $i++;
-                              }
-                              ?>
+                              <?php $counter3++; ?>
+                              <?php } ?>
                             </tbody>
                           </table>
                           <span> <i>Display limit (5)</i> </span>
@@ -365,58 +331,26 @@
                                 </tr>
                               </thead>
                             <tbody>
-                              <?php
-                              $i = 1;
-                              $j = 1;
-                              foreach($data_priorities as $cashier) {
-
-                                if($cashier['transaction_type'] == 2) {
-
-                                  if($cashier['closed'] == 0 && $j <= 5) {
-                                  ?>
-                                  <tr>
-                                    <td>
-                                      <span style="font-size:20px;color:#26B0CF">RP-<?php echo sprintf("%04d", $i)?></span>
-                                    </td>
-                                    <td><center>
-                                      <?php
-                                      if($cashier['status'] == 0) {
-
-                                        if($this->main->employee_check_have_transaction($this->session->userdata('user_id'))) {
-                                        ?>
+                            <?php $counter4 = 0; ?>
+                              <?php foreach($data_priorities as $registrar_priority) { ?>
+                                <tr>
+                                  <td>
+                                    <span style="font-size:20px;color:#26B0CF"><?= $registrar_priority['assigned_queue_num']; ?></span>
+                                  </td>
+                                  <td><center>                                  
+                                    <?php if($registrar_priority['agent_id'] == 0) { ?>
+                                      <?php if($counter4 == 0){ ?>
+                                        <a href="<?php echo base_url(); ?>employee-process-appointment/<?php echo $registrar_priority['id']; ?>" class="btn btn-info btn-sm" style="color:white"><b>PROCESS APPOINTMENT</b></a>                                        
+                                      <?php } else {?>                                                                       
                                         <span style="font-size:20px;color:#26B0CF">Waiting</span></center>
-                                        <?php
-                                        } else {
-                                        ?>
-                                        <a href="<?php echo base_url(); ?>employee-process-appointment/<?php echo $cashier['id']; ?>" class="btn btn-info btn-sm" style="color:white"><b>PROCESS APPOINTMENT</b></a>
-                                        <?php
-                                        }
-
-                                      } else if($cashier['status'] == 1){
-
-                                        if($cashier['agent_id'] == $this->session->userdata('user_id')){
-                                        ?>
-                                        <a href="<?php echo base_url(); ?>employee-appointment/<?php echo $cashier['id']; ?>" class="btn btn-info btn-sm" style="color:white"><b>VIEW DETAIL</b></a>
-                                        <?php
-                                        } else {
-                                        ?>
-                                        <span style="font-size:20px;color:#26B0CF">Admitted</span></center>
-                                        <?php
-                                        }
-                                      ?>
-                                      <?php
-                                      }
-                                      ?>
-                                    </td>
-                                  </tr>
-                                  <?php
-                                  $j++;
-                                  }
-                                  $i++;
-                                }
-
-                              }
-                              ?>
+                                      <?php } ?>
+                                    <?php } else { ?>                                        
+                                      <span style="font-size:20px;color:#26B0CF">Waiting</span></center>
+                                    <?php } ?>
+                                  </center></td>
+                                </tr>
+                              <?php $counter4++; ?>
+                              <?php } ?>
                             </tbody>
                           </table>
                           <span> <i>Display limit (5)</i> </span>

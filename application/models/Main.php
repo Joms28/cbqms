@@ -291,21 +291,19 @@ class Main extends CI_Model {
 
   }
 
-  public function get_dashboard_priority_data($limit = 4) {
+  public function get_dashboard_priority_data($limit = 5) {
 
-    $data = [];
+    $data = NULL;
 
-    $query = $this->db->where('priority_status', 1)->where('sched_date', date("F j, Y"))->order_by('id','ASC')->limit(5)->get('transactions')->result_array();    
+    $user_level = $this->session->user_level;    
+
+    $query = $this->db->where('status',0)->where('priority_status', 1)->where('transaction_type',$user_level)->where('sched_date', date("F j, Y"))->order_by('id','ASC')->limit($limit)->get('transactions')->result_array();        
     
-    if($query){
-      $data = $query;
-    }
-
     $today = date("F j, Y");
     $tomorrow = new DateTime('tomorrow');
     $tomorrow = $tomorrow->format('F j, Y');    
 
-    return $data;
+    return $query;
   }
 
   public function user_login_employee() {
@@ -319,7 +317,7 @@ class Main extends CI_Model {
 
       $id = $query->row_array();
 
-      $query2 = $this->db->where('employee_id', $id['id'])->where('date', date("F j, Y"))->get('counters');
+      /*$query2 = $this->db->where('employee_id', $id['id'])->where('date', date("F j, Y"))->get('counters');
 
       if($query2->row() == 0) {
         $data = array(
@@ -332,6 +330,7 @@ class Main extends CI_Model {
         $this->db->insert('counters', $data);
 
       }
+      */
 
   		return $id['id'];
 
@@ -340,6 +339,11 @@ class Main extends CI_Model {
     }
 
   }
+
+  public function get_employee_data($user_id){
+    return $this->db->where('id',$user_id)->get('users')->row_array();
+  }
+  
 
   public function employee_check_have_transaction($id) {
 
@@ -664,6 +668,31 @@ class Main extends CI_Model {
     );
     $this->db->where('id',$transaction_id)->update('transactions',$info);
     $this->db->where('transaction_id',$transaction_id)->update('transactions',$info);
+  }
+
+  public function check_if_has_pending_processing($user_id){
+    $this->db->where('agent_id',$user_id);
+    $this->db->where('status',1);
+    $this->db->where('closed',0);
+    $this->db->where('sched_date',date("F j, Y"));
+    $this->db->limit(1);
+    $query = $this->db->get('transactions');
+    if($query->num_rows() > 0){
+      return $query->row_array();
+    }
+    else{
+      return 0;
+    }
+  }
+
+  public function check_if_has_agent_id($transaction_id){
+    $query = $this->db->where('id',$transaction_id)->get('transactions')->row_array();
+    if($query['agent_id'] != 0){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
   
 }
