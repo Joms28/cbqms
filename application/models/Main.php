@@ -202,7 +202,7 @@ class Main extends CI_Model {
   public function check_user_sched_cashier($id) {
 
     //$query = $this->db->where('user_id', $id)->where('transaction_type', 1)->where('sched_date', date("F j, Y"))->where('closed', 0)->get('transactions');
-    $query = $this->db->where('user_id', $id)->where('transaction_type', 1)->where('closed', 0)->get('transactions');
+    $query = $this->db->where('user_id', $id)->where('transaction_type', 1)->where('status',0)->where('closed', 0)->get('transactions');
 
     if($query->num_rows()) {
       return false;
@@ -224,7 +224,7 @@ class Main extends CI_Model {
   public function get_user_sched_registrar($id) {
 
     //$query = $this->db->where('user_id', $id)->where('transaction_type', 2)->where('sched_date', date("F j, Y"))->where('closed', 0)->get('transactions');
-    $query = $this->db->where('user_id', $id)->where('transaction_type', 2)->where('closed', 0)->get('transactions');
+    $query = $this->db->where('user_id', $id)->where('transaction_type', 2)->where('status != 2')->where('closed', 0)->get('transactions');
 
     return $query->row_array();
 
@@ -232,7 +232,8 @@ class Main extends CI_Model {
 
   public function get_user_sched_cashier_by_id($id) {
 
-    $query = $this->db->where('id', $id)->where('transaction_type', 1)->where('sched_date', date("F j, Y"))->where('closed', 0)->get('transactions');
+    //$query = $this->db->where('id', $id)->where('transaction_type', 1)->where('sched_date', date("F j, Y"))->where('closed', 0)->get('transactions');
+    $query = $this->db->where('id', $id)->where('transaction_type', 1)->where('closed', 0)->get('transactions');
 
     return $query->row_array();
 
@@ -240,7 +241,7 @@ class Main extends CI_Model {
 
   public function get_user_sched_registrar_by_id($id) {
 
-    $query = $this->db->where('id', $id)->where('transaction_type', 2)->where('sched_date', date("F j, Y"))->where('closed', 0)->get('transactions');
+    $query = $this->db->where('id', $id)->where('transaction_type', 2)->where('closed', 0)->get('transactions');
 
     return $query->row_array();
 
@@ -249,7 +250,7 @@ class Main extends CI_Model {
   public function check_user_sched_registrar($id) {
 
     //$query = $this->db->where('user_id', $id)->where('transaction_type', 2)->where('sched_date', date("F j, Y"))->where('closed', 0)->get('transactions');
-    $query = $this->db->where('user_id', $id)->where('transaction_type', 2)->where('closed', 0)->get('transactions');
+    $query = $this->db->where('user_id', $id)->where('transaction_type', 2)->where('status',0)->where('closed', 0)->get('transactions');
 
     if($query->num_rows()) {
       return false;
@@ -259,8 +260,8 @@ class Main extends CI_Model {
 
   }
 
-  public function delete_appointment($id) {
-    $this->db->where('id', $id)->update('transactions', array('closed' => 1));
+  public function delete_appointment($id) {    
+    $this->db->where('id', $id)->update('transactions', array('closed' => 1, 'status' => 2));
   }
 
   public function check_available_counter($counter) {
@@ -271,28 +272,37 @@ class Main extends CI_Model {
 
   }
 
-  public function get_dashboard_cashier_data() {
-
-    $query = $this->db->where('priority_status', 0)->where('transaction_type', 1)->where('sched_date', date("F j, Y"))->get('transactions');
-
-    return $query->result_array();
-
-  }
-
-  public function get_dashboard_registrar_data() {
-
-    $query = $this->db->where('priority_status', 0)->where('transaction_type', 2)->where('sched_date', date("F j, Y"))->get('transactions');
+  public function get_dashboard_cashier_data($limit = 5) {
+    
+    $query = $this->db->where('priority_status', 0)->where('transaction_type', 1)->where('sched_date', date("F j, Y"))->limit($limit)->get('transactions');
 
     return $query->result_array();
 
   }
 
-  public function get_dashboard_priority_data() {
+  public function get_dashboard_registrar_data($limit = 5) {
 
-    $query = $this->db->where('priority_status', 1)->where('sched_date', date("F j, Y"))->get('transactions');
+    $query = $this->db->where('priority_status', 0)->where('transaction_type', 2)->where('sched_date', date("F j, Y"))->limit($limit)->get('transactions');
 
     return $query->result_array();
 
+  }
+
+  public function get_dashboard_priority_data($limit = 4) {
+
+    $data = [];
+
+    $query = $this->db->where('priority_status', 1)->where('sched_date', date("F j, Y"))->order_by('id','ASC')->limit(5)->get('transactions')->result_array();    
+    
+    if($query){
+      $data = $query;
+    }
+
+    $today = date("F j, Y");
+    $tomorrow = new DateTime('tomorrow');
+    $tomorrow = $tomorrow->format('F j, Y');    
+
+    return $data;
   }
 
   public function user_login_employee() {
@@ -333,7 +343,7 @@ class Main extends CI_Model {
     $query = $this->db->where('closed', 0)->where('agent_id', $id)->get('transactions');
 
   	if($query->num_rows() > 0) {
-  	return $query->row_array()['id'];
+  	  return $query->row_array()['id'];
   	} else {
   	return 0;
   	}
@@ -504,10 +514,48 @@ class Main extends CI_Model {
 
   }
 
-  public function get_call($transaction_id){
-    $query = $this->db->where('transaction_id',$transaction_id)->get('transaction_calls');
+  public function get_transactions_cashier(){ //5 transactions at a time
+    return $this->db->where('status',0)->where('closed',0)->where('transaction_type',1)->limit(5)->get('transactions');
+  }
 
-    return $this->query->row_array();
+  //get transaction call record and insert if none
+  public function get_call($transaction_id){
+    $query = $this->db->where('transaction_id',$transaction_id)->get('transaction_calls')->row_array();
+    if($query){
+      return $query;
+    }
+    else{
+      $transaction = $this->db->where('id',$transaction_id)->get('transactions')->row_array();
+      $to_insert = array(
+        'transaction_id' => $transaction_id,
+        'call_count' => 1
+      );
+      $this->db->insert('transaction_calls',$to_insert);
+      return $to_insert;
+    }
+  }
+
+  //increment call count and update transaction calls
+  public function update_call($transaction_id,$call_count){
+    $call_count++;
+    $count = array(
+      'call_count' => $call_count
+    );
+    $this->db->where('transaction_id',$transaction_id);
+    $this->db->update('transaction_calls',$count);
+  }  
+
+  //set transaction as pending and update status to 1 (Pending)
+  public function set_transaction_as_pending($transaction_id){
+    $transaction = $this->db->where('id',$transaction_id)->get('transactions')->row_array();
+    $to_insert = array(
+      'transaction_id' => $transaction_id,
+      'status' => 1,
+      'closed' => 0,
+      'expires_at' => $transaction['expires_at']
+    );
+    $this->db->insert('pending_transactions',$to_insert);
+    $this->db->where('id',$transaction_id)->update('transactions',array('status' => 1));
   }
 
   //queue number create

@@ -42,10 +42,17 @@ class ElaMainController extends CI_Controller {
 
     $this->main->update_bleep(1);
     
-    $calls = $this->main->get_call_count();
-
-    redirect(base_url() . "employee-appointment/" . $id);
-
+    $calls = $this->main->get_call($id);
+    if(intval($calls['call_count']) < 4){
+      $count = intval($calls['call_count']);
+      $this->main->update_call($id,$count);
+      redirect(base_url() . "employee-appointment/" . $id);
+    }
+    else{
+      $this->main->set_transaction_as_pending($id);      
+      $this->session->set_flashdata('respond-registrar', 'This transaction was moved to pending due to multiple calls');
+      redirect(base_url() . "employee-appointment/" . $id);
+    }
   }
 
   public function index() {

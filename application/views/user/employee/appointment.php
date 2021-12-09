@@ -251,7 +251,9 @@
                                 <h4>  <small> <b>PRIORITY</b> </small>  <br> <?php echo $trans['priority_type']; ?></h4>
                                 <h4>  <small> <b>TRANSACTION TYPE</b> </small>  <br> <?php echo $trans['transaction_name']; ?></h4>
                                 <h4>  <small> <b>SCHEDULED DATE</b> </small>  <br> <?php echo $trans['sched_date']; ?></h4> <br>
-                                <a href="<?php echo base_url() . 'bleep/' . $trans['id'] . ""; ?>" class="btn btn-success" style="color:white">CALL</a>
+                                <?php if($this->session->flashdata('respond-registrar') != 'This transaction was moved to pending due to multiple calls'){?>                      
+                                  <a href="<?php echo base_url() . 'bleep/' . $trans['id'] . ""; ?>" class="btn btn-success" style="color:white">CALL</a>
+                                <?php } ?>
                                 <div class="modal fade" id="complete_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                       <div class="modal-content">
@@ -271,7 +273,9 @@
                                       </div>
                                     </div>
                                   </div>
-                                  <button data-toggle="modal" type="button" data-target="#complete_modal"class="btn btn-info text-white" id="btnconfimation-modal" >COMPLETE</button>
+                                  <?php if($this->session->flashdata('respond-registrar') != 'This transaction was moved to pending due to multiple calls'){?>
+                                    <button data-toggle="modal" type="button" data-target="#complete_modal"class="btn btn-info text-white" id="btnconfimation-modal" >COMPLETE</button>
+                                  <?php }?>
                                   <div class="modal fade" id="cancel_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                       <div class="modal-content">
@@ -290,9 +294,13 @@
                                         </div>
                                       </div>
                                     </div>
-                                  </div>
-                                  <button data-toggle="modal" type="button" data-target="#cancel_modal"class="btn btn-danger text-white" id="btnconfimationcancel-modal" >CANCEL</button>
-                                
+                                  </div>            
+                                  <?php if($this->session->flashdata('respond-registrar') != 'This transaction was moved to pending due to multiple calls'){?>                      
+                                    <button data-toggle="modal" type="button" data-target="#cancel_modal"class="btn btn-danger text-white" id="btnconfimationcancel-modal" >CANCEL</button>
+                                  <?php }?>
+                                  <?php if($this->session->flashdata('respond-registrar') == 'This transaction was moved to pending due to multiple calls'){?>
+                                    <a href="<?= base_url('employee-dashboard'); ?>" class="btn btn-secondary text-white">BACK</a>
+                                  <?php }?>
                               </div>
                         </div>
                     </div>

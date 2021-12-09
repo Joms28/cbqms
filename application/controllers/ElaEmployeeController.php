@@ -173,7 +173,7 @@ class ElaEmployeeController extends CI_Controller {
 
     $this->session->set_flashdata('respond-process', 'User is checked in.');
 
-    redirect(base_url() . "employee-dashboard");
+    redirect(base_url() . "employee-appointment/".$id);
 
   }
 
