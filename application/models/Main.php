@@ -518,6 +518,22 @@ class Main extends CI_Model {
     return $this->db->where('status',0)->where('closed',0)->where('transaction_type',1)->limit(5)->get('transactions');
   }
 
+  //retrieve transactions -> multiple usage
+  public function get_transactions_list($transaction_type = 0, $limit = 5, $status = 0, $closed = 0){
+    if($transaction_type != 0){
+      $this->db->where('transaction_type',$transaction_type);
+    }
+    if($status != 0){
+      $this->db->where('status',$status);
+    }
+    if($closed != 0){
+      $this->db->where('closed',$closed);
+    }
+    
+    $this->db->limit($limit);
+    return $this->db->get('transactions')->result_array();
+  }
+
   //get transaction call record and insert if none
   public function get_call($transaction_id){
     $query = $this->db->where('transaction_id',$transaction_id)->get('transaction_calls')->row_array();

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 date_default_timezone_set('Asia/Manila');
-class ElaEmployeeController extends CI_Controller {
+class Employee extends CI_Controller {
 
   public function login() {
     $this->form_validation->set_rules('username', 'Email Address', 'required');

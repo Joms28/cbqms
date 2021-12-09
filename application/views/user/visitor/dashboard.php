@@ -277,7 +277,7 @@
                               <?php
                               $i = 1;
                               $j = 1;
-                              foreach($data_registrars as $cashier) {
+                              foreach($data_registrars as $data) {
 
                                 if($cashier['closed'] == 0 && $j <= 5) {
                                 ?>
