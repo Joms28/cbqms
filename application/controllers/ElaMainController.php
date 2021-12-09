@@ -541,7 +541,7 @@ class ElaMainController extends CI_Controller {
 
       $this->session->set_flashdata('respond-registrar', 'You successfully created an appointment.');
 
-      redirect(base_url() . "visitor_form_registrar");
+      redirect(base_url() . "visitor-registrar");
     }
   }
 

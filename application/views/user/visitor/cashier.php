@@ -185,7 +185,7 @@
                                     <h4><?php echo $user['fname'] . " " . $user['lname']; ?></h4>
                                     <?php echo $user['mobile']; ?> <br> <br>
                                     <?php echo ($trans['transaction_type'] == 1 ? "Cashier" : "Registrar"); ?> <br>
-                                    <h4><?php echo $trans['transaction_name']; ?></h4><br> 
+                                    <h4><?php echo $trans['transaction_name']; ?></h4><br>
 
                                     <?php if($trans['status'] == '4'){ ?>
                                       <small>YOUR TICKET HAS EXPIRED YOU MAY REQUEST FOR ANOTHER APPOINTMENT TO BE ACCOMODATED</small><br><br>
@@ -232,8 +232,9 @@
                                       </div>
                                     </div>
                                   </div>
-                                  <button data-toggle="modal" type="button" data-target="#cancel_modal"class="btn btn-danger btn-sm text-white" id="btnconfimation-modal" >CANCEL APPOINTMENT</button>
-                                
+                                  <?php if($trans['status'] != '4'){ ?>
+                                    <button data-toggle="modal" type="button" data-target="#cancel_modal"class="btn btn-danger btn-sm text-white" id="btnconfimation-modal" >CANCEL APPOINTMENT</button>
+                                  <?php } ?>
                             </div>
                         </div>
                     </div>
