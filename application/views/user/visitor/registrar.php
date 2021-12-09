@@ -208,7 +208,7 @@
                                     
                                     <?php if($trans['status'] == '4'){ ?>
                                       <small>YOUR TICKET HAS EXPIRED YOU MAY REQUEST FOR ANOTHER APPOINTMENT TO BE ACCOMODATED</small><br><br>
-                                      <button class="btn btn-primary">CREATE APPOINTMENT</button>
+                                      <a href="<?= base_url('recreate_appointment_registrar/').$trans['id']; ?>" class="btn btn-primary">CREATE APPOINTMENT</a>
                                     <?php } else { ?>
                                       <small> PLEASE TAKE A PICTURE OF YOUR TICKET </small> <br>
                                       <small>TICKET IS VALID UNTIL: <b><?= $trans['expires_at'] ?></b></small>

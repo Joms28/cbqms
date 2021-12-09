@@ -575,7 +575,6 @@ class Main extends CI_Model {
       foreach($expired_transactions as $transaction){
         $data = array(          
           'status' => 4,
-          'closed' => 1,
         );
         $this->db->where('id',$transaction['id']);
         $this->db->update('transaction',$data); //update transactions expired
