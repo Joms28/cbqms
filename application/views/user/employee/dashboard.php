@@ -231,6 +231,7 @@
                                     <span style="font-size:20px;color:#26B0CF">C-<?php echo sprintf("%04d", $i)?></span>
                                   </td>
                                   <td><center>
+                                  <?= $this->session->userdata('user_id') ?>
                                     <?php
                                     if($cashier['status'] == 0) {
 
@@ -289,58 +290,28 @@
                                 </tr>
                               </thead>
                             <tbody>
-                              <?php
-                              $i = 1;
-                              $j = 1;
-                              foreach($data_priorities as $cashier) {
-
-                                if($cashier['transaction_type'] == 1) {
-
-                                  if($cashier['closed'] == 0 && $j <= 5) {
-                                  ?>
-                                  <tr>
-                                    <td>
-                                      <span style="font-size:20px;color:#26B0CF">CP-<?php echo sprintf("%04d", $i)?></span>
-                                    </td>
-                                    <td><center>
-                                      <?php
-                                      if($cashier['status'] == 0) {
-
-                                        if($this->main->employee_check_have_transaction($this->session->userdata('user_id'))) {
-                                        ?>
+                              <?php 
+                                $counter = 0;
+                                foreach($data_priorities as $cashier_priority) { 
+                              ?>                              
+                                <tr>
+                                  <td>
+                                    <span style="font-size:20px;color:#26B0CF"><?= $cashier_priority['assigned_queue_num']; ?></span>
+                                  </td>
+                                  <td>
+                                    <center>                                                                          
+                                      <?php if($counter == 0){?>
+                                        <a href="<?php echo base_url(); ?>employee-appointment/<?php echo $cashier_priority['id']; ?>" class="btn btn-info btn-sm" style="color:white"><b>VIEW DETAIL</b></a>                                        
+                                      <?php } else{?>
                                         <span style="font-size:20px;color:#26B0CF">Waiting</span></center>
-                                        <?php
-                                        } else {
-                                        ?>
-                                        <a href="<?php echo base_url(); ?>employee-process-appointment/<?php echo $cashier['id']; ?>" class="btn btn-info btn-sm" style="color:white"><b>PROCESS APPOINTMENT</b></a>
-                                        <?php
-                                        }
-
-                                      } else if($cashier['status'] == 1){
-
-                                        if($cashier['agent_id'] == $this->session->userdata('user_id')){
-                                        ?>
-                                        <a href="<?php echo base_url(); ?>employee-appointment/<?php echo $cashier['id']; ?>" class="btn btn-info btn-sm" style="color:white"><b>VIEW DETAIL</b></a>
-                                        <?php
-                                        } else {
-                                        ?>
-                                        <span style="font-size:20px;color:#26B0CF">Admitted</span></center>
-                                        <?php
-                                        }
-                                      ?>
-                                      <?php
-                                      }
-                                      ?>
-                                    </td>
-                                  </tr>
-                                  <?php
-                                  $j++;
-                                  }
-                                  $i++;
-                                }
-
-                              }
-                              ?>
+                                      <?php } ?>
+                                    </center>
+                                  </td>
+                                </tr>
+                              <?php 
+                                $counter++;
+                                } 
+                              ?>                              
                             </tbody>
                           </table>
                           <span> <i>Display limit (5)</i> </span>

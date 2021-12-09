@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 date_default_timezone_set('Asia/Manila');
-class ElaMainController extends CI_Controller {
+class MainController extends CI_Controller {
 
   public function  __construct(){
     parent::__construct();
@@ -41,10 +41,17 @@ class ElaMainController extends CI_Controller {
 
     $this->main->update_bleep(1);
     
-    $calls = $this->main->get_call_count();
-
-    redirect(base_url() . "employee-appointment/" . $id);
-
+    $calls = $this->main->get_call($id);
+    if(intval($calls['call_count']) < 4){
+      $count = intval($calls['call_count']);
+      $this->main->update_call($id,$count);
+      redirect(base_url() . "employee-appointment/" . $id);
+    }
+    else{
+      $this->main->set_transaction_as_pending($id);      
+      $this->session->set_flashdata('respond-registrar', 'This transaction was moved to pending due to multiple calls');
+      redirect(base_url() . "employee-appointment/" . $id);
+    }
   }
 
   public function index() {
@@ -540,7 +547,7 @@ class ElaMainController extends CI_Controller {
 
       $this->session->set_flashdata('respond-registrar', 'You successfully created an appointment.');
 
-      redirect(base_url() . "visitor_form_registrar");
+      redirect(base_url() . "visitor-registrar");
     }
   }
 

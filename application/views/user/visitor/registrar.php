@@ -251,9 +251,9 @@
                                       </div>
                                     </div>
                                   </div>
-                                  <!--
-                                  <button data-toggle="modal" type="button" data-target="#cancel_modal"class="btn btn-danger btn-sm text-white" id="btnconfimation-modal" >CANCEL APPOINTMENT</button>
-                                    -->
+                                  <?php if($trans['status'] != '4'){ ?>
+                                    <button data-toggle="modal" type="button" data-target="#cancel_modal"class="btn btn-danger btn-sm text-white" id="btnconfimation-modal" >CANCEL APPOINTMENT</button>
+                                  <?php }?>
 
                                     
                                 
