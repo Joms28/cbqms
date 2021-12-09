@@ -169,9 +169,7 @@ class Employee extends CI_Controller {
 
     $session_id = $this->session->userdata('user_id');
 
-    $this->main->processAppointment($id,$session_id);
-
-    $this->session->set_flashdata('respond-process', 'User is checked in.');
+    $this->main->processAppointment($id,$session_id);    
 
     redirect(base_url() . "employee-appointment/".$id);
 

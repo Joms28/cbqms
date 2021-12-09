@@ -219,61 +219,26 @@
                                 </tr>
                               </thead>
                             <tbody>
-                              <?php
-                              $i = 1;
-                              $j = 1;
-                              foreach($data_cashiers as $cashier) {
-
-                                if($cashier['closed'] == 0 && $j <= 5) {
-                                ?>
+                              <?php $counter = 0; ?>
+                              <?php foreach($data_cashiers as $cashier) { ?>                                
                                 <tr>
                                   <td>
-                                    <span style="font-size:20px;color:#26B0CF">C-<?php echo sprintf("%04d", $i)?></span>
+                                    <span style="font-size:20px;color:#26B0CF"><?= $cashier['assigned_queue_num']; ?></span>
                                   </td>
-                                  <td><center>
-                                  <?= $this->session->userdata('user_id') ?>
-                                    <?php
-                                    if($cashier['status'] == 0) {
-
-                                      if($this->main->employee_check_have_transaction($this->session->userdata('user_id'))) {
-                                      ?>
+                                  <td><center>                                  
+                                    <?php if($cashier['agent_id'] == 0) { ?>
+                                      <?php if($counter == 0){ ?>
+                                        <a href="<?php echo base_url(); ?>employee-process-appointment/<?php echo $cashier['id']; ?>" class="btn btn-info btn-sm" style="color:white"><b>PROCESS APPOINTMENT</b></a>                                        
+                                      <?php } else {?>                                                                       
+                                        <span style="font-size:20px;color:#26B0CF">Waiting</span></center>
+                                      <?php } ?>
+                                    <?php } else { ?>                                        
                                       <span style="font-size:20px;color:#26B0CF">Waiting</span></center>
-                                      <?php
-                                      } else {
-                                      ?>
-                                      <a href="<?php echo base_url(); ?>employee-process-appointment/<?php echo $cashier['id']; ?>" class="btn btn-info btn-sm" style="color:white"><b>PROCESS APPOINTMENT</b></a>
-                                      <?php
-                                      }
-
-                                    } else if($cashier['status'] == 1){
-
-                                      if($cashier['agent_id'] == $this->session->userdata('user_id')){
-                                      ?>
-
-                                      <a href="<?php echo base_url(); ?>employee-appointment/<?php echo $cashier['id']; ?>" class="btn btn-info btn-sm" style="color:white"><b>VIEW DETAIL</b></a>
-
-                                      <?php
-                                      } else {
-                                      ?>
-
-                                      <span style="font-size:20px;color:#26B0CF">Admitted</span></center>
-
-                                      <?php
-                                      }
-                                      ?>
-
-                                    <?php
-                                    }
-                                    ?>
-
-                                  </td>
+                                    <?php } ?>
+                                  </center></td>
                                 </tr>
-                                <?php
-                                $j++;
-                                }
-                                $i++;
-                              }
-                              ?>
+                              <?php $counter++; ?>
+                              <?php } ?>
                             </tbody>
                           </table>
                           <span> <i>Display limit (5)</i> </span>
@@ -289,29 +254,27 @@
                                   <th><center><span style="font-size:20px;color:#26B0CF">Action</span></center></th>
                                 </tr>
                               </thead>
-                            <tbody>
-                              <?php 
-                                $counter = 0;
-                                foreach($data_priorities as $cashier_priority) { 
-                              ?>                              
+                            <tbody>                              
+                              <?php $counter2 = 0; ?>
+                              <?php foreach($data_priorities as $cashier_priority) { ?>                                
                                 <tr>
                                   <td>
                                     <span style="font-size:20px;color:#26B0CF"><?= $cashier_priority['assigned_queue_num']; ?></span>
                                   </td>
-                                  <td>
-                                    <center>                                                                          
-                                      <?php if($counter == 0){?>
-                                        <a href="<?php echo base_url(); ?>employee-appointment/<?php echo $cashier_priority['id']; ?>" class="btn btn-info btn-sm" style="color:white"><b>VIEW DETAIL</b></a>                                        
-                                      <?php } else{?>
+                                  <td><center>                                  
+                                    <?php if($cashier_priority['agent_id'] == 0) { ?>
+                                      <?php if($counter2 == 0){ ?>
+                                        <a href="<?php echo base_url(); ?>employee-process-appointment/<?php echo $cashier_priority['id']; ?>" class="btn btn-info btn-sm" style="color:white"><b>PROCESS APPOINTMENT</b></a>                                        
+                                      <?php } else {?>                                                                       
                                         <span style="font-size:20px;color:#26B0CF">Waiting</span></center>
                                       <?php } ?>
-                                    </center>
-                                  </td>
+                                    <?php } else { ?>                                        
+                                      <span style="font-size:20px;color:#26B0CF">Waiting</span></center>
+                                    <?php } ?>
+                                  </center></td>
                                 </tr>
-                              <?php 
-                                $counter++;
-                                } 
-                              ?>                              
+                              <?php $counter2++; ?>
+                              <?php } ?>                              
                             </tbody>
                           </table>
                           <span> <i>Display limit (5)</i> </span>

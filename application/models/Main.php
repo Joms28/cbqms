@@ -277,7 +277,7 @@ class Main extends CI_Model {
 
   public function get_dashboard_cashier_data($limit = 5) {
     
-    $query = $this->db->where('priority_status', 0)->where('transaction_type', 1)->where('sched_date', date("F j, Y"))->limit($limit)->get('transactions');
+    $query = $this->db->where('status',0)->where('priority_status', 0)->where('transaction_type', 1)->where('sched_date', date("F j, Y"))->limit($limit)->get('transactions');
 
     return $query->result_array();
 
@@ -285,7 +285,7 @@ class Main extends CI_Model {
 
   public function get_dashboard_registrar_data($limit = 5) {
 
-    $query = $this->db->where('priority_status', 0)->where('transaction_type', 2)->where('sched_date', date("F j, Y"))->limit($limit)->get('transactions');
+    $query = $this->db->where('status',0)->where('priority_status', 0)->where('transaction_type', 2)->where('sched_date', date("F j, Y"))->limit($limit)->get('transactions');
 
     return $query->result_array();
 
@@ -547,7 +547,7 @@ class Main extends CI_Model {
       $transaction = $this->db->where('id',$transaction_id)->get('transactions')->row_array();
       $to_insert = array(
         'transaction_id' => $transaction_id,
-        'call_count' => 1
+        'call_count' => 0
       );
       $this->db->insert('transaction_calls',$to_insert);
       return $to_insert;
