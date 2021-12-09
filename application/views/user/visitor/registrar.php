@@ -196,42 +196,7 @@
                                   <div style="border:1px solid silver;padding:15px;background:#FFF7B2;border-radius:15px">
                                     <center>
                                       <small style="color:gray">Queue Number</small> <br>
-
-                                      <?php
-                                      $check = 0;
-                                      if($trans['priority_status'] == 1) {
-
-                                        foreach($transactions as $transaction){
-
-                                          if($transaction['user_id'] == $trans['user_id'] && $transaction['closed'] == 0 && $transaction['transaction_type'] == $trans['transaction_type']){
-                                            $check++;
-                                            break;
-                                          } else if($transaction['priority_status'] == 1 && $transaction['transaction_type'] == $trans['transaction_type']) {
-                                            $check += 1;
-                                          }
-
-                                        }
-                                        $text = ($trans['transaction_type'] == 1 ? "C" : "R") . "P-" . sprintf("%04d", $check);
-
-                                      } else {
-
-                                        foreach($transactions as $transaction){
-
-                                          if($transaction['user_id'] == $trans['user_id'] && $transaction['closed'] == 0 && $transaction['transaction_type'] == $trans['transaction_type']){
-                                            $check++;
-                                            break;
-                                          } else if($transaction['priority_status'] == 0 && $transaction['transaction_type'] == $trans['transaction_type']) {
-                                            $check++;
-                                          }
-
-                                        }
-                                        $text = ($trans['transaction_type'] == 1 ? "C" : "R") . "-" . sprintf("%04d", $check);
-
-                                      }
-
-                                      ?>
-
-                                      <h2 style="color:gray"><?php echo $text; ?></h1>
+                                      <h2 style="color:gray"><?php echo $trans['assigned_queue_num']; ?></h1>
                                     </center>
                                   </div>
                                   <br>
@@ -239,15 +204,15 @@
                                     <h4><?php echo $user['fname'] . " " . $user['lname']; ?></h4>
                                     <?php echo $user['mobile']; ?> <br> <br>
                                     <?php echo ($trans['transaction_type'] == 1 ? "Cashier" : "Registrar"); ?> <br>
-                                    <h4><?php echo $trans['transaction_name']; ?></h4><br>
-
-                                    <h4>Your Ticket has Expired</h4>
-                                    <small>You ticket has been called multiple times in the last 48hrs. Please request another ticket for your transaction to be accomodated</small>
-                                      <br><br>
-                                    <button data-toggle="modal" type="button" data-target="#cancel_modal"class="btn btn-primary btn-sm text-white" id="btnconfimation-modal" >CREATE APPOINTMENT</button>
+                                    <h4><?php echo $trans['transaction_name']; ?></h4><br>                                    
                                     
-                                    <!--
-                                    <small> PLEASE TAKE A PICTURE OF YOUR TICKET </small> <br> -->
+                                    <?php if($trans['status'] == '4'){ ?>
+                                      <small>YOUR TICKET HAS EXPIRED YOU MAY REQUEST FOR ANOTHER APPOINTMENT TO BE ACCOMODATED</small><br><br>
+                                      <button class="btn btn-primary">CREATE APPOINTMENT</button>
+                                    <?php } else { ?>
+                                      <small> PLEASE TAKE A PICTURE OF YOUR TICKET </small> <br>
+                                      <small>TICKET IS VALID UNTIL: <b><?= $trans['expires_at'] ?></b></small>
+                                    <?php }?>
 
                                   </center>
                                 </div>

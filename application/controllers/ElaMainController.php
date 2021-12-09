@@ -527,8 +527,8 @@ class ElaMainController extends CI_Controller {
     $session_id = $this->session->userdata('user_id');
     $data['user'] = $this->main->user_walkin_get_user($session_id);
     $data['trans'] = $this->main->get_user_sched_registrar($session_id);
-    $data['transactions'] = ($data['trans'] != null ? $this->main->user_walkin_get_transaction_by_date($data['trans']['sched_date']) : array());
-
+    //$data['transactions'] = ($data['trans'] != null ? $this->main->user_walkin_get_transaction_by_date($data['trans']['sched_date']) : array()); removed since queue num is now in backend
+    
     $this->form_validation->set_rules('transaction', 'Transaction', 'trim|required|min_length[2]');
 
     if ($this->form_validation->run() == FALSE)
@@ -541,7 +541,7 @@ class ElaMainController extends CI_Controller {
 
       $this->session->set_flashdata('respond-registrar', 'You successfully created an appointment.');
 
-      redirect(base_url() . "visitor-registrar");
+      redirect(base_url() . "visitor_form_registrar");
     }
   }
 
@@ -670,6 +670,16 @@ class ElaMainController extends CI_Controller {
   public function visitor_logout() {
     $this->session->sess_destroy();
     redirect(base_url());
+  }  
+
+  public function recreate_appointment_registrar($transaction_id){
+    $this->main->close_expired_transaction($transaction_id);
+    redirect(base_url() . "visitor-registrar");
+  }
+
+  public function recreate_appointment_cashier($transaction_id){
+    $this->main->close_expired_transaction($transaction_id);
+    redirect(base_url() . "visitor-cashier");
   }
 
 }

@@ -43,6 +43,11 @@ $route['visitor-cashier/delete/(:any)'] = 'ElaMainController/visitor_from_cashie
 $route['visitor-cashier-ticket'] = 'ElaMainController/visitor_form_cashier_ticket';
 $route['visitor-logout'] = 'ElaMainController/visitor_logout';
 
+//recreate recreate_appointment_cashier
+$route['recreate_appointment_registrar/(:any)'] = 'ElaMainController/recreate_appointment_registrar/$1';
+$route['recreate_appointment_cashier/(:any)'] = 'ElaMainController/recreate_appointment_cashier/$1';
+
+
 $route['employee-login'] = 'ElaEmployeeController/login';
 $route['employee-logout'] = '';
 $route['employee-dashboard'] = 'ElaEmployeeController/dashboard';

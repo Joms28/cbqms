@@ -201,7 +201,8 @@ class Main extends CI_Model {
 
   public function check_user_sched_cashier($id) {
 
-    $query = $this->db->where('user_id', $id)->where('transaction_type', 1)->where('sched_date', date("F j, Y"))->where('closed', 0)->get('transactions');
+    //$query = $this->db->where('user_id', $id)->where('transaction_type', 1)->where('sched_date', date("F j, Y"))->where('closed', 0)->get('transactions');
+    $query = $this->db->where('user_id', $id)->where('transaction_type', 1)->where('closed', 0)->get('transactions');
 
     if($query->num_rows()) {
       return false;
@@ -213,7 +214,8 @@ class Main extends CI_Model {
 
   public function get_user_sched_cashier($id) {
 
-    $query = $this->db->where('user_id', $id)->where('transaction_type', 1)->where('sched_date', date("F j, Y"))->where('closed', 0)->get('transactions');
+    //$query = $this->db->where('user_id', $id)->where('transaction_type', 1)->where('sched_date', date("F j, Y"))->where('closed', 0)->get('transactions');
+    $query = $this->db->where('user_id', $id)->where('transaction_type', 1)->where('closed', 0)->get('transactions');
 
     return $query->row_array();
 
@@ -221,7 +223,8 @@ class Main extends CI_Model {
 
   public function get_user_sched_registrar($id) {
 
-    $query = $this->db->where('user_id', $id)->where('transaction_type', 2)->where('sched_date', date("F j, Y"))->where('closed', 0)->get('transactions');
+    //$query = $this->db->where('user_id', $id)->where('transaction_type', 2)->where('sched_date', date("F j, Y"))->where('closed', 0)->get('transactions');
+    $query = $this->db->where('user_id', $id)->where('transaction_type', 2)->where('closed', 0)->get('transactions');
 
     return $query->row_array();
 
@@ -245,7 +248,8 @@ class Main extends CI_Model {
 
   public function check_user_sched_registrar($id) {
 
-    $query = $this->db->where('user_id', $id)->where('transaction_type', 2)->where('sched_date', date("F j, Y"))->where('closed', 0)->get('transactions');
+    //$query = $this->db->where('user_id', $id)->where('transaction_type', 2)->where('sched_date', date("F j, Y"))->where('closed', 0)->get('transactions');
+    $query = $this->db->where('user_id', $id)->where('transaction_type', 2)->where('closed', 0)->get('transactions');
 
     if($query->num_rows()) {
       return false;
@@ -374,6 +378,7 @@ class Main extends CI_Model {
     );
 
     $this->db->where('id', $id)->update('transactions',$data);
+    $this->db->where('transaction_id',$id)->update('pending_transactions',$data); //update pending transactions if exists
   }
 
   public function processCancel($id) {
@@ -383,6 +388,7 @@ class Main extends CI_Model {
     );
 
     $this->db->where('id', $id)->update('transactions',$data);
+    $this->db->where('transaction_id',$id)->update('pending_transactions',$data); //update pending transactions if exists
   }
 
   public function get_all_transaction_by_id($id) {
@@ -528,6 +534,54 @@ class Main extends CI_Model {
     $queue_num = $transaction_prefix . $priority_prefix . '-' . sprintf("%04d", $transactions_count);
 
     return $queue_num;
+  }  
+
+  public function eod_check_pending($transaction_type = 0){
+
+    if($transaction_type != 0){
+      $this->db->where('transaction_type',$transaction_type); // no transaction type filter by default
+    }
+
+    $this->db->where('status',0)->where('closed',0);    
+    $this->db->order_by('queue_num','ASC');
+
+    $pending_transactions = $this->db->get('transactions')->result_array();
+
+    if($pending_transactions){      
+      foreach($pending_transactions as $transaction){
+        $data = array(
+          'transaction_id' => $transaction['id'],
+          'status' => $transaction['status'],
+          'closed' => $transaction['closed'],
+          'expires_at' => $transaction['expires_at']
+        );
+        $this->db->insert('pending_transactions',$data); //insert into pending transactions
+      }
+    }
+  }
+
+  public function eod_check_expired($transaction_type = 0){
+
+    if($transaction_type != 0){
+      $this->db->where('transaction_type',$transaction_type); // no transaction type filter by default
+    }
+
+    $this->db->where('status',0)->where('closed',0);
+    $this->db->where('expires_at',date("F j, Y"));    
+
+    $expired_transactions = $this->db->get('transactions')->result_array();
+
+    if($expired_transactions){      
+      foreach($expired_transactions as $transaction){
+        $data = array(          
+          'status' => 4,
+          'closed' => 1,
+        );
+        $this->db->where('id',$transaction['id']);
+        $this->db->update('transaction',$data); //update transactions expired
+        $this->db->update('pending_transactions',$data); //update pending transactions expired
+      }
+    }
   }
 
   public function update_pending_transaction($status,$transaction_id){
@@ -537,4 +591,13 @@ class Main extends CI_Model {
     );
     $this->db->where('transaction_id',$transaction_id)->update('pending_transactions',$info);
   }
+
+  public function close_expired_transaction($transaction_id){
+    $info = array(
+      'closed' => 1
+    );
+    $this->db->where('id',$transaction_id)->update('transactions',$info);
+    $this->db->where('transaction_id',$transaction_id)->update('transactions',$info);
+  }
+  
 }
