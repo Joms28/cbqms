@@ -167,7 +167,7 @@
                               if($cashier['closed'] == 0 && $j <= 1 && $cashier['status'] == 0) {
                               ?>
                               <h3 class="box-title">NEXT TO SERVER</h3>
-                              <h1> <b> C-<?php echo sprintf("%04d", $i)?> </b> </h1>
+                              <h1> <b> <?=$cashier['assigned_queue_num']?></b> </h1>
                               <h4>Waiting to be accomodated...</h4>
                               <?php
                               $j++;
@@ -193,7 +193,7 @@
                             if($cashier['closed'] == 0 && $j <= 1 && $cashier['status'] == 0) {
                             ?>
                             <h3 class="box-title">NEXT TO SERVER</h3>
-                            <h1> <b> R-<?php echo sprintf("%04d", $i)?> </b> </h1>
+                            <h1> <b> <?=$cashier['assigned_queue_num']?> </b> </h1>
                             <h4>Waiting to be accomodated...</h4>
                             <?php
                             $j++;
@@ -233,7 +233,7 @@
                                 ?>
                                 <tr <?php echo ($cashier['user_id'] == $this->session->userdata('user_id') ? "class='table-primary'" : ""); ?>>
                                   <td>
-                                    <span style="font-size:20px;color:#26B0CF">C-<?php echo sprintf("%04d", $i)?></span>
+                                    <span style="font-size:20px;color:#26B0CF"><?=$cashier['assigned_queue_num']?></span>
                                   </td>
                                   <td><center>
                                     <?php
@@ -283,7 +283,7 @@
                                 ?>
                                 <tr <?php echo ($cashier['user_id'] == $this->session->userdata('user_id') ? "class='table-primary'" : ""); ?>>
                                   <td>
-                                    <span style="font-size:20px;color:#26B0CF">R-<?php echo sprintf("%04d", $i)?></span>
+                                    <span style="font-size:20px;color:#26B0CF"><?=$cashier['assigned_queue_num']?></span>
                                   </td>
                                   <td><center>
                                     <?php
@@ -333,7 +333,7 @@
                                 ?>
                                 <tr <?php echo ($cashier['user_id'] == $this->session->userdata('user_id') ? "class='table-primary'" : ""); ?>>
                                   <td>
-                                    <span style="font-size:20px;color:#26B0CF">CP-<?php echo sprintf("%04d", $i)?></span>
+                                    <span style="font-size:20px;color:#26B0CF"><?=$cashier['assigned_queue_num']?></span>
                                   </td>
                                   <td><center>
                                     <?php
@@ -358,7 +358,7 @@
                                 ?>
                                 <tr <?php echo ($cashier['user_id'] == $this->session->userdata('user_id') ? "class='table-primary'" : ""); ?>>
                                   <td>
-                                    <span style="font-size:20px;color:#26B0CF">RP-<?php echo sprintf("%04d", $i)?></span>
+                                    <span style="font-size:20px;color:#26B0CF"><?=$cashier['assigned_queue_num']?></span>
                                   </td>
                                   <td><center>
                                     <?php
