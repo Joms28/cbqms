@@ -276,7 +276,7 @@ class Main extends CI_Model {
 
   public function get_dashboard_cashier_data() {
 
-    $query = $this->db->where('priority_status', 0)->where('transaction_type', 1)->where('closed',0)->where('sched_date', date("F j, Y"))->get('transactions');
+    $query = $this->db->where('priority_status', 0)->where('transaction_type', 1)->where('status',0)->where('closed',0)->where('sched_date', date("F j, Y"))->get('transactions');
 
     return $query->result_array();
 
@@ -284,10 +284,23 @@ class Main extends CI_Model {
 
   public function get_dashboard_registrar_data() {
 
-    $query = $this->db->where('priority_status', 0)->where('transaction_type', 2)->where('closed',0)->where('sched_date', date("F j, Y"))->get('transactions');
+    $query = $this->db->where('priority_status', 0)->where('transaction_type', 2)->where('status',0)->where('closed',0)->where('sched_date', date("F j, Y"))->get('transactions');
 
     return $query->result_array();
 
+  }
+
+  public function set_transaction_as_pending($transaction_id){
+    $transaction = $this->db->where('id',$transaction_id)->get('transactions')->row_array();
+    $pending = array(
+      'transaction_id' => $transaction_id,
+      'queue_num' => $transaction['assigned_queue_num'],
+      'status' => $transaction['status'],
+      'closed' => $transaction['closed'],
+      'expires_at' => $transaction['expires_at']
+    );
+    $this->db->insert('pending_transactions',$pending);
+    $this->db->where('id',$transaction_id)->update('transactions',array('status' => 5));
   }
 
   public function get_dashboard_priority_data() {
@@ -515,6 +528,7 @@ class Main extends CI_Model {
   }
 
   public function update_call($transaction_id,$call_count){
+    $call_count++;
     $call_info = array(
       'call_count' => $call_count
     );

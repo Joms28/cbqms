@@ -40,7 +40,7 @@ class MainController extends CI_Controller {
     $this->main->update_bleep(1);
     
     $calls = $this->main->get_call($id);
-    if(intval($calls['call_count']) < 4){
+    if(intval($calls['call_count']) < 3){
       $count = intval($calls['call_count']);
       $this->main->update_call($id,$count);
       redirect(base_url() . "employee-appointment/" . $id);
