@@ -323,9 +323,7 @@ class Main extends CI_Model {
 
   public function employee_check_have_transaction($id) {
 
-    $query = $this->db->where('closed', 0)->where('agent_id', $id)->get('transactions');
-
-    print_r($query->row_array()); die();
+    $query = $this->db->where('status',1)->where('closed', 0)->where('agent_id', $id)->get('transactions');
 
   	if($query->num_rows() > 0) {
   	return $query->row_array()['id'];
