@@ -300,8 +300,12 @@ class Main extends CI_Model {
       'expires_at' => $transaction['expires_at']
     );
     $this->db->insert('pending_transactions',$pending);
-    $this->db->where('id',$transaction_id)->update('transactions',array('status' => 5,'agent_id' => 0));
-    $this->db->where('transaction_id',$transaction_id)->update('transaction_calls',array('call_count' => 0));
+    if(intval($transaction['days_lapsed']) < 2){
+      $this->db->where('id',$transaction_id)->update('transactions',array('status' => 5,'agent_id' => 0, 'reschedule_date' => date("F j, Y",time() + 86400), 'days_lapsed' => intval($transaction['days_lapsed']) + 1));
+      $this->db->where('transaction_id',$transaction_id)->update('transaction_calls',array('call_count' => 0));
+    }
+    
+    
   }
 
   public function get_dashboard_priority_data() {
@@ -310,7 +314,7 @@ class Main extends CI_Model {
 
     if($user_level < 3){
       $query1 = $this->db->where('priority_status', 1)->where('closed',0)->where('transaction_type',$user_level)->where('sched_date', date("F j, Y"))->limit(4)->get('transactions')->result_array();      
-      $query2 = $this->db->where('status',5)->where('closed',0)->where('transaction_type',$user_level)->limit(1)->get('transactions')->result_array();
+      $query2 = $this->db->where('status',5)->where('closed',0)->where('transaction_type',$user_level)->where('reschedule_date',date("F j, Y"))->limit(1)->get('transactions')->result_array();
 
       $query = NULL;
       if($query1){
