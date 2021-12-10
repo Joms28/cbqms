@@ -302,32 +302,15 @@ class Main extends CI_Model {
 
     $username = $this->input->post('username');
 		$password = $this->input->post('password');
-
-		$query = $this->db->where('username', $username)->where('password', $password)->where('level <', 3)->get('users');
-
-    if($query->num_rows()) {
-
-      $id = $query->row_array();
-
-      $query2 = $this->db->where('employee_id', $id['id'])->where('date', date("F j, Y"))->get('counters');
-
-      if($query2->row() == 0) {
-        $data = array(
-          'employee_id' => $id['id'],
-          'date' => date("F j, Y"),
-          'type' => $id['level'],
-          'closed' => 0
-        );
-
-        $this->db->insert('counters', $data);
-
-      }
-
-  		return $id['id'];
-
-    } else {
-      return 0;
-    }
+    $query = $this->db->query('SELECT * from users where username="'.$username.'" AND password="'. $password.'" AND level <3');
+	
+		foreach ($query->result() as $row)
+		{	
+      $this->session->set_userdata('user_id', $row->id);
+      $this->session->set_userdata('user_level', $row->level);
+      return true;
+		}
+    return false;
 
   }
 
