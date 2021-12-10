@@ -126,7 +126,7 @@
                         ?>
                         <tr>
                           <td>
-                            <span style="font-size:20px;color:#26B0CF">C-<?php echo sprintf("%04d", $i)?></span>
+                            <span style="font-size:20px;color:#26B0CF"><?=$cashier['assigned_queue_num']?></span>
                           </td>
                           <td><center>
                             <?php
@@ -176,7 +176,7 @@
                         ?>
                         <tr>
                           <td>
-                            <span style="font-size:20px;color:#26B0CF">R-<?php echo sprintf("%04d", $i)?></span>
+                            <span style="font-size:20px;color:#26B0CF"><?=$cashier['assigned_queue_num']?></span>
                           </td>
                           <td><center>
                             <?php
@@ -226,7 +226,7 @@
                         ?>
                         <tr>
                           <td>
-                            <span style="font-size:20px;color:#26B0CF">CP-<?php echo sprintf("%04d", $i)?></span>
+                            <span style="font-size:20px;color:#26B0CF"><?=$cashier['assigned_queue_num']?></span>
                           </td>
                           <td><center>
                             <?php
