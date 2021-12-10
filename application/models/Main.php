@@ -304,7 +304,9 @@ class Main extends CI_Model {
       $this->db->where('id',$transaction_id)->update('transactions',array('status' => 5,'agent_id' => 0, 'reschedule_date' => date("F j, Y",time() + 86400), 'days_lapsed' => intval($transaction['days_lapsed']) + 1));
       $this->db->where('transaction_id',$transaction_id)->update('transaction_calls',array('call_count' => 0));
     }
-    
+    else{
+      $this->db->where('id',$transaction_id)->update('transactions',array('status' => 4,'agent_id' => 0));
+    }
     
   }
 
