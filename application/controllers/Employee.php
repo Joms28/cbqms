@@ -128,7 +128,6 @@ class Employee extends CI_Controller {
     }
     else{
       $this->main->processAppointment($id,$session_id);
-
       redirect(base_url() . "employee-appointment/".$id);
     }
   }
