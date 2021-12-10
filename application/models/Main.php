@@ -321,12 +321,12 @@ class Main extends CI_Model {
 
   }
 
-  public function employee_check_have_transaction($id) {
+  public function employee_check_have_transaction($user_id) {
 
-    $query = $this->db->where('status',1)->where('closed', 0)->where('agent_id', $id)->get('transactions');
+    $query = $this->db->where('status',1)->where('closed', 0)->where('agent_id', $user_id)->get('transactions');
 
   	if($query->num_rows() > 0) {
-  	return $query->row_array()['id'];
+  	return $query->row_array();
   	} else {
   	return 0;
   	}
