@@ -235,7 +235,7 @@ class Main extends CI_Model {
 
   public function get_user_sched_cashier_by_id($id) {
 
-    $query = $this->db->where('id', $id)->where('transaction_type', 1)->where('sched_date', date("F j, Y"))->where('closed', 0)->get('transactions');
+    $query = $this->db->where('id', $id)->where('transaction_type', 1)->where('closed', 0)->get('transactions');
 
     return $query->row_array();
 
@@ -243,7 +243,7 @@ class Main extends CI_Model {
 
   public function get_user_sched_registrar_by_id($id) {
 
-    $query = $this->db->where('id', $id)->where('transaction_type', 2)->where('sched_date', date("F j, Y"))->where('closed', 0)->get('transactions');
+    $query = $this->db->where('id', $id)->where('transaction_type', 2)->where('closed', 0)->get('transactions');
 
     return $query->row_array();
 
