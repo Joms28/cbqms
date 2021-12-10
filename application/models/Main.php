@@ -83,7 +83,7 @@ class Main extends CI_Model {
       'transaction_name' => $this->input->post('transaction'),
       'priority_status' => ($this->input->post('priority') != "0" ? 1 : 0),
       'priority_type' => ($this->input->post('priority') != "0" ? $this->input->post('priority') : 0),
-      'assigned_queue_num' => $this->create_queue_num($this->input->post('priority'),1),
+      'assigned_queue_num' => $this->create_queue_num($this->input->post('priority'),$this->input->post('type')),
       'updated_at' => $date,
       'created_at' => $date
     );
