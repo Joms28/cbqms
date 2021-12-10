@@ -24,8 +24,8 @@ $route['admin/logout'] = 'Users/logout';
 $route['login'] = 'MainController/main_sign_in';
 $route['signup'] = 'MainController/main_sign_up';
 $route['forgot'] = 'MainController/main_forget_password';
-$route['forgot/verif/(:any)'] = 'MainController/MainController_forget_password_verification/$1';
-$route['forgot/change/(:any)'] = 'MainController/MainController_forget_change_password/$1';
+$route['forgot/verif/(:any)'] = 'MainController/main_forget_password_verification/$1';
+$route['forgot/change/(:any)'] = 'MainController/main_forget_change_password/$1';
 $route['walkin'] = 'MainController/walkin';
 
 $route['walkin-cashier'] = 'MainController/MainController_walk_in_cashier';
