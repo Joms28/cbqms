@@ -131,23 +131,7 @@ class Employee extends CI_Controller {
 
       redirect(base_url() . "employee-appointment/".$id);
     }
-  }
-
-  public function appointmentProcessing($id) {    
-
-    $session_id = $this->session->userdata('user_id');
-    $data['user'] = $this->user->get_user($session_id);
-    if($data['user']['level'] == 1) {
-    $data['trans'] = $this->main->get_user_sched_cashier_by_id($id);
-    } else if($data['user']['level'] == 2) {
-    $data['trans'] = $this->main->get_user_sched_registrar_by_id($id);
-    }
-    $data['transactions'] = $this->main->user_walkin_get_transaction_by_date($data['trans']['sched_date']);
-    $data['usr'] = $this->main->user_walkin_get_user($data['trans']['user_id']);
-
-    $this->load->view("user/employee/appointment",$data);
-
-  }
+  }  
 
   public function processComplete($id) {   
 
