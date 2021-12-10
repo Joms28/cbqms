@@ -119,24 +119,6 @@ class Employee extends CI_Controller {
 
   public function log() {
 
-    if($this->session->userdata('user_level') != null) {
-
-      if($this->session->userdata('user_level') == 1) {
-        redirect(base_url() . "visitor-dashboard");
-      }
-
-      // if($this->session->userdata('user_level') == 2) {
-      //   redirect(base_url() . "employee-dashboard");
-      // }
-
-      if($this->session->userdata('user_level') == 3) {
-        redirect(base_url() . "admin/dashboard");
-      }
-
-    } else {
-      redirect(base_url());
-    }
-
     $session_id = $this->session->userdata('user_id');
     $data['user'] = $this->user->get_user($session_id);
     $data['logs'] = $this->main->get_all_transaction_by_id($session_id);
@@ -148,7 +130,7 @@ class Employee extends CI_Controller {
 
     if($this->session->userdata('user_level') != null) {
      
-      if($this->session->userdata('user_level') == 3) {
+      if($this->session->userdata('user_level') == 4) {
         redirect(base_url() . "admin/dashboard");
       }
 
@@ -171,17 +153,9 @@ class Employee extends CI_Controller {
 
   public function appointmentProcessing($id) {
 
-    if($this->session->userdata('user_level') != null) {
+    if($this->session->userdata('user_level') != null) {      
 
-      if($this->session->userdata('user_level') == 1) {
-        redirect(base_url() . "visitor-dashboard");
-      }
-
-      // if($this->session->userdata('user_level') == 2) {
-      //   redirect(base_url() . "employee-dashboard");
-      // }
-
-      if($this->session->userdata('user_level') == 3) {
+      if($this->session->userdata('user_level') == 4) {
         redirect(base_url() . "admin/dashboard");
       }
 
@@ -206,15 +180,7 @@ class Employee extends CI_Controller {
   public function processComplete($id) {
 
     if($this->session->userdata('user_level') != null) {
-
-      if($this->session->userdata('user_level') == 1) {
-        redirect(base_url() . "visitor-dashboard");
-      }
-
-      // if($this->session->userdata('user_level') == 2) {
-      //   redirect(base_url() . "employee-dashboard");
-      // }
-
+      
       if($this->session->userdata('user_level') == 3) {
         redirect(base_url() . "admin/dashboard");
       }
@@ -232,17 +198,9 @@ class Employee extends CI_Controller {
 
   public function processCancel($id) {
 
-    if($this->session->userdata('user_level') != null) {
+    if($this->session->userdata('user_level') != null) {      
 
-      if($this->session->userdata('user_level') == 1) {
-        redirect(base_url() . "visitor-dashboard");
-      }
-
-      // if($this->session->userdata('user_level') == 2) {
-      //   redirect(base_url() . "employee-dashboard");
-      // }
-
-      if($this->session->userdata('user_level') == 3) {
+      if($this->session->userdata('user_level') == 4) {
         redirect(base_url() . "admin/dashboard");
       }
 
