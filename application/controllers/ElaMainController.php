@@ -12,20 +12,18 @@ class ElaMainController extends CI_Controller {
 			$id = $this->main->user_walkin_cashier_insert_user();
 
 			redirect(base_url() . "walkin-ticket/" . $id);
-    //$this->form_validation->set_rules('fname', 'First Name', 'required|trim|min_length[2]');
-    //$this->form_validation->set_rules('lname', 'Last Name', 'required|trim|min_length[2]');
-    //$this->form_validation->set_rules('mobile', 'Mobile Number', 'required|trim|min_length[11]|max_length[11]');
+    $this->form_validation->set_rules('fname', 'First Name', 'trim');;
 
-	//	if ($this->form_validation->run() == FALSE)
-	//	{
-  //    $this->load->view("user/visitor/walkin");
-	//	}
-	//	else
-//		{
-	//		$id = $this->main->user_walkin_cashier_insert_user();
-//
-	//		redirect(base_url() . "walkin-ticket/" . $id);
-	//	};
+		if ($this->form_validation->run() == FALSE)
+		{
+      $this->load->view("user/visitor/walkin");
+		}
+		else
+		{
+			$id = $this->main->user_walkin_cashier_insert_user();
+
+			redirect(base_url() . "walkin-ticket/" . $id);
+		};
   }
 
   public function tv() {
