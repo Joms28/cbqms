@@ -149,15 +149,7 @@ class Employee extends CI_Controller {
   public function processAppointment($id) {
 
     if($this->session->userdata('user_level') != null) {
-
-      if($this->session->userdata('user_level') == 1) {
-        redirect(base_url() . "visitor-dashboard");
-      }
-
-      // if($this->session->userdata('user_level') == 2) {
-      //   redirect(base_url() . "employee-dashboard");
-      // }
-
+     
       if($this->session->userdata('user_level') == 3) {
         redirect(base_url() . "admin/dashboard");
       }
@@ -173,7 +165,7 @@ class Employee extends CI_Controller {
       redirect(base_url("employee-dashboard"));
     }
     else{
-      $this->main->processAppointment($id,$session_id);    
+      $this->main->processAppointment($id,$session_id);
 
       redirect(base_url() . "employee-appointment/".$id);
     }
