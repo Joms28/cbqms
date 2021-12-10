@@ -326,7 +326,7 @@ class Main extends CI_Model {
     $query = $this->db->where('status',1)->where('closed', 0)->where('agent_id', $user_id)->get('transactions');
 
   	if($query->num_rows() > 0) {
-  	return $query->row_array();
+  	return $query->row_array()['id'];
   	} else {
   	return 0;
   	}

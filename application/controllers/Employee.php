@@ -44,7 +44,7 @@ class Employee extends CI_Controller {
     $current_trans = $this->main->employee_check_have_transaction($session_id);
 
     if($current_trans != 0){
-      redirect(base_url("employee-appointment/".$current_trans['id']));
+      redirect(base_url("employee-appointment/".$current_trans));
     }
     else{
       $data['user'] = $this->user->get_user($session_id);
