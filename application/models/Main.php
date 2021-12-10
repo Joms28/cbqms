@@ -498,10 +498,11 @@ class Main extends CI_Model {
   }
 
   public function get_call($transaction_id){
-    $query = $this->db->where('transaction_id',$transaction_id)->get('transaction_calls');
 
-    if($query){
-      return $this->query->row_array();
+    $call = $this->db->where('transaction_id',$transaction_id)->get('transaction_calls')->row_array();
+    
+    if($call){
+      return $call;
     }
     else{
       $call = array(
@@ -510,7 +511,7 @@ class Main extends CI_Model {
       );
       $this->db->insert('transaction_calls',$call);
       return $call;
-    }    
+    }
   }
 
   public function update_call($transaction_id,$call_count){
