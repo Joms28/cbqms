@@ -12,7 +12,8 @@ class Employee extends CI_Controller {
     }
     else
     {
-      if($this->main->user_login_employee() ) {
+      if($this->main->user_login_employee() ) {        
+
         
         redirect(base_url() . "employee-dashboard");
 
@@ -44,7 +45,7 @@ class Employee extends CI_Controller {
     $current_trans = $this->main->employee_check_have_transaction($session_id);
 
     if($current_trans != 0){
-      redirect(base_url("employee-appointment/".$current_trans));
+      redirect(base_url("employee-appointment/".$current_trans['id']));
     }
     else{
       $data['user'] = $this->user->get_user($session_id);
@@ -109,6 +110,16 @@ class Employee extends CI_Controller {
 
   public function processAppointment($id) {
 
+    if($this->session->userdata('user_level') != null) {
+     
+      if($this->session->userdata('user_level') == 4) {
+        redirect(base_url() . "admin/dashboard");
+      }
+
+    } else {
+      redirect(base_url());
+    }
+
     $session_id = $this->session->userdata('user_id');
 
     if($this->main->check_if_has_agent_id($id)){
@@ -120,7 +131,23 @@ class Employee extends CI_Controller {
 
       redirect(base_url() . "employee-appointment/".$id);
     }
-  }  
+  }
+
+  public function appointmentProcessing($id) {    
+
+    $session_id = $this->session->userdata('user_id');
+    $data['user'] = $this->user->get_user($session_id);
+    if($data['user']['level'] == 1) {
+    $data['trans'] = $this->main->get_user_sched_cashier_by_id($id);
+    } else if($data['user']['level'] == 2) {
+    $data['trans'] = $this->main->get_user_sched_registrar_by_id($id);
+    }
+    $data['transactions'] = $this->main->user_walkin_get_transaction_by_date($data['trans']['sched_date']);
+    $data['usr'] = $this->main->user_walkin_get_user($data['trans']['user_id']);
+
+    $this->load->view("user/employee/appointment",$data);
+
+  }
 
   public function processComplete($id) {   
 

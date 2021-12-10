@@ -304,7 +304,7 @@
                                   <td><center>                                  
                                     <?php if($registrar['agent_id'] == 0) { ?>
                                       <?php if($counter3 == 0){ ?>
-                                        <a href="<?php echo base_url(); ?>employee-process-appointment/<?php echo $registrar['id']; ?>" class="btn btn-info btn-sm" style="color:white"><b>PROCESS APPOINTMENT</b></a>                                        
+                                        <a href="<?php echo base_url(); ?>employee-appointment/<?php echo $registrar['id']; ?>" class="btn btn-info btn-sm" style="color:white"><b>PROCESS APPOINTMENT</b></a>                                        
                                       <?php } else {?>                                                                       
                                         <span style="font-size:20px;color:#26B0CF">Waiting</span></center>
                                       <?php } ?>
@@ -340,7 +340,7 @@
                                   <td><center>                                  
                                     <?php if($registrar_priority['agent_id'] == 0) { ?>
                                       <?php if($counter4 == 0){ ?>
-                                        <a href="<?php echo base_url(); ?>employee-process-appointment/<?php echo $registrar_priority['id']; ?>" class="btn btn-info btn-sm" style="color:white"><b>PROCESS APPOINTMENT</b></a>                                        
+                                        <a href="<?php echo base_url(); ?>employee-appointment/<?php echo $registrar_priority['id']; ?>" class="btn btn-info btn-sm" style="color:white"><b>PROCESS APPOINTMENT</b></a>                                        
                                       <?php } else {?>                                                                       
                                         <span style="font-size:20px;color:#26B0CF">Waiting</span></center>
                                       <?php } ?>
