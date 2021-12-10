@@ -300,7 +300,7 @@ class Main extends CI_Model {
       'expires_at' => $transaction['expires_at']
     );
     $this->db->insert('pending_transactions',$pending);
-    $this->db->where('id',$transaction_id)->update('transactions',array('status' => 5));
+    $this->db->where('id',$transaction_id)->update('transactions',array('status' => 5,'agent_id' => 0));
   }
 
   public function get_dashboard_priority_data() {
