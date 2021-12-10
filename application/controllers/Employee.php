@@ -109,16 +109,6 @@ class Employee extends CI_Controller {
 
   public function processAppointment($id) {
 
-    if($this->session->userdata('user_level') != null) {
-     
-      if($this->session->userdata('user_level') == 4) {
-        redirect(base_url() . "admin/dashboard");
-      }
-
-    } else {
-      redirect(base_url());
-    }
-
     $session_id = $this->session->userdata('user_id');
 
     if($this->main->check_if_has_agent_id($id)){
