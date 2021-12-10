@@ -496,7 +496,7 @@ class Main extends CI_Model {
     return $this->query->row_array();
   }
 
-  public function check_if_has_agent_id($transaction_id){    
+  public function check_if_has_agent_id($transaction_id){
     $query = $this->db->where('id',$transaction_id)->get('transactions')->row_array();
     if($query['agent_id'] == 0){
       return false;
