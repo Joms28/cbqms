@@ -500,7 +500,24 @@ class Main extends CI_Model {
   public function get_call($transaction_id){
     $query = $this->db->where('transaction_id',$transaction_id)->get('transaction_calls');
 
-    return $this->query->row_array();
+    if($query){
+      return $this->query->row_array();
+    }
+    else{
+      $call = array(
+        'transaction_id' => $transaction_id,
+        'call_count' => 0
+      );
+      $this->db->insert('transaction_calls',$call);
+      return $call;
+    }    
+  }
+
+  public function update_call($transaction_id,$call_count){
+    $call_info = array(
+      'call_count' => $call_count
+    );
+    $this->db->where('transaction_id',$transaction_id)->update('transaction_calls',$call_info);
   }
 
   public function check_if_has_agent_id($transaction_id){
