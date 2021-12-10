@@ -12,8 +12,7 @@ class Employee extends CI_Controller {
     }
     else
     {
-      if($this->main->user_login_employee() ) {        
-
+      if($this->main->user_login_employee() ) {
         
         redirect(base_url() . "employee-dashboard");
 
