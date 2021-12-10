@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 date_default_timezone_set('Asia/Manila');
-class ElaUserController extends CI_Controller {
+class Users extends CI_Controller {
 
   public function admin_user_login() {
 
