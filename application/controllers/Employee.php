@@ -14,8 +14,6 @@ class Employee extends CI_Controller {
     {
       if($this->main->user_login_employee() ) {        
 
-        $this->session->set_userdata('user_id', $this->main->user_login_employee());
-        $this->session->set_userdata('user_level', $this->main->get_employee_data($this->session->user_id)['level']);
         
         redirect(base_url() . "employee-dashboard");
 
@@ -44,7 +42,7 @@ class Employee extends CI_Controller {
 
     $session_id = $this->session->userdata('user_id');
 
-    $current_trans = $this->main->check_if_has_pending_processing($session_id);
+    $current_trans = $this->main->employee_check_have_transaction($session_id);
 
     if($current_trans != 0){
       redirect(base_url("employee-appointment/".$current_trans['id']));
