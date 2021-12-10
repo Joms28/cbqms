@@ -306,8 +306,7 @@ class Main extends CI_Model {
     }
     else{
       $this->db->where('id',$transaction_id)->update('transactions',array('status' => 4,'agent_id' => 0));
-    }
-    
+    }    
   }
 
   public function get_dashboard_priority_data() {
@@ -606,13 +605,7 @@ class Main extends CI_Model {
 
     if($pending_transactions){      
       foreach($pending_transactions as $transaction){
-        $data = array(
-          'transaction_id' => $transaction['id'],
-          'status' => $transaction['status'],
-          'closed' => $transaction['closed'],
-          'expires_at' => $transaction['expires_at']
-        );
-        $this->db->insert('pending_transactions',$data); //insert into pending transactions
+        //set pending
       }
     }
   }
