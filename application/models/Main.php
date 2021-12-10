@@ -196,7 +196,7 @@ class Main extends CI_Model {
       'updated_at' => $date,
       'created_at' => $date,
       'expires_at' => $expires,
-      'assigned_queue_num' => $this->create_queue_num($this->input->post('priority'),1),
+      'assigned_queue_num' => $this->create_queue_num($this->input->post('priority'),2),
     );
 
     $this->db->insert('transactions',$data2);
