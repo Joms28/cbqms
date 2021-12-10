@@ -308,13 +308,28 @@ class Main extends CI_Model {
     $user_level = $this->session->user_level;   
 
     if($user_level < 3){
-      $query = $this->db->where('priority_status', 1)->where('closed',0)->where('transaction_type',$user_level)->where('sched_date', date("F j, Y"))->get('transactions');
+      $query1 = $this->db->where('priority_status', 1)->where('closed',0)->where('transaction_type',$user_level)->where('sched_date', date("F j, Y"))->limit(4)->get('transactions')->result_array();      
+      $query2 = $this->db->where('status',5)->where('closed',0)->where('transaction_type',$user_level)->limit(1)->get('transactions')->result_array();
+
+      $query = NULL;
+      if($query1){
+        $query = $query1;
+        if($query2){
+          $query = array_merge($query1,$query2);
+        }
+      }
+      else{
+        if($query2){
+          $query = $query2;
+        }
+      }
+      
     }
     else{
-      $query = $this->db->where('priority_status', 1)->where('closed',0)->where('sched_date', date("F j, Y"))->get('transactions');
+      $query = $this->db->where('priority_status', 1)->where('closed',0)->where('sched_date', date("F j, Y"))->get('transactions')->result_array();
     }
 
-    return $query->result_array();
+    return $query;
 
   }
 
