@@ -39,13 +39,13 @@
 
     						<div class="form-group">
     							<label>Last Name</label>
-    							<input type="text" class="form-control" name="lname" value="" >
+    							<input type="text" class="form-control" name="lname" value="" placeholder="(optional)" >
     							<?php echo form_error('lname', '<small><span style="color:red;font-size: small">', '</strong></small><br>'); ?>
     						</div>
 
                 <div class="form-group">
     							<label>First Name</label>
-    							<input type="text" class="form-control" name="fname" >
+    							<input type="text" class="form-control" name="fname" placeholder="(optional)">
     							<?php echo form_error('fname', '<small><span style="color:red;font-size: small">', '</strong></small><br>'); ?>
     						</div>
 
@@ -53,7 +53,7 @@
 
                 <div class="form-group">
     							<label>Mobile Number</label>
-    							<input type="text" class="form-control" name="mobile" >
+    							<input type="text" class="form-control" name="mobile"  placeholder="(optional)">
     							<?php echo form_error('mobile', '<small><span style="color:red;font-size: small">', '</strong></small><br>'); ?>
     						</div>
 
