@@ -301,6 +301,7 @@ class Main extends CI_Model {
     );
     $this->db->insert('pending_transactions',$pending);
     $this->db->where('id',$transaction_id)->update('transactions',array('status' => 5,'agent_id' => 0));
+    $this->db->where('transaction_id',$transaction_id)->update('transaction_calls',array('call_count' => 0));
   }
 
   public function get_dashboard_priority_data() {
