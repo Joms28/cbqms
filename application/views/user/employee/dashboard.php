@@ -263,13 +263,14 @@
                               </thead>
                             <tbody>                              
                               <?php $counter2 = 0; ?>
+                              <?php if($data_priorities){ ?>
                               <?php foreach($data_priorities as $cashier_priority) { ?>
                                 <tr>
                                   <td>
                                     <span style="font-size:20px;color:#26B0CF"><?= $cashier_priority['assigned_queue_num']; ?></span>
                                   </td>
-                                  <td><center>      
-                                    <?php if($data_priorities){ ?>
+                                  <td><center>     
+                                    
                                       <?php if($cashier_priority['status'] == 0){ ?>
                                         <?php if($cashier_priority['agent_id'] == 0) { ?>
                                           <?php if($counter2 == 0){ ?>
