@@ -57,25 +57,7 @@ class Employee extends CI_Controller {
     }    
   }
 
-  public function profile() {
-
-    if($this->session->userdata('user_level') != null) {
-
-      if($this->session->userdata('user_level') == 1) {
-        redirect(base_url() . "visitor-dashboard");
-      }
-
-      // if($this->session->userdata('user_level') == 2) {
-      //   redirect(base_url() . "employee-dashboard");
-      // }
-
-      if($this->session->userdata('user_level') == 3) {
-        redirect(base_url() . "admin/dashboard");
-      }
-
-    } else {
-      redirect(base_url());
-    }
+  public function profile() {    
 
     $session_id = $this->session->userdata('user_id');
     $data['user'] = $this->main->user_walkin_get_user($session_id);
@@ -151,17 +133,7 @@ class Employee extends CI_Controller {
     }
   }
 
-  public function appointmentProcessing($id) {
-
-    if($this->session->userdata('user_level') != null) {      
-
-      if($this->session->userdata('user_level') == 4) {
-        redirect(base_url() . "admin/dashboard");
-      }
-
-    } else {
-      redirect(base_url());
-    }
+  public function appointmentProcessing($id) {    
 
     $session_id = $this->session->userdata('user_id');
     $data['user'] = $this->user->get_user($session_id);
@@ -177,17 +149,7 @@ class Employee extends CI_Controller {
 
   }
 
-  public function processComplete($id) {
-
-    if($this->session->userdata('user_level') != null) {
-      
-      if($this->session->userdata('user_level') == 3) {
-        redirect(base_url() . "admin/dashboard");
-      }
-
-    } else {
-      redirect(base_url());
-    }
+  public function processComplete($id) {   
 
     $this->main->processComplete($id);
 
@@ -196,17 +158,7 @@ class Employee extends CI_Controller {
     redirect(base_url() . "employee-dashboard");
   }
 
-  public function processCancel($id) {
-
-    if($this->session->userdata('user_level') != null) {      
-
-      if($this->session->userdata('user_level') == 4) {
-        redirect(base_url() . "admin/dashboard");
-      }
-
-    } else {
-      redirect(base_url());
-    }
+  public function processCancel($id) {    
 
     $this->main->processCancel($id);
 
