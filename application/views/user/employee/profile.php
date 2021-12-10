@@ -235,12 +235,16 @@
                                         <div class="col-md-12 border-bottom p-0">
                                             <input type="text" name="fname" value="<?php echo $user['fname']; ?>"
                                                 class="form-control p-0 border-0"> </div>
+                                                <?php echo form_error('fname', '<small><span style="color:red;font-size: small">', '</strong></small><br>'); ?>
+                                    
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label class="col-md-6 p-0">Last Name</label>
                                         <div class="col-md-12 border-bottom p-0">
                                             <input type="text" name="lname" value="<?php echo $user['lname']; ?>"
-                                                class="form-control p-0 border-0"> </div>
+                                                class="form-control p-0 border-0"> </div> 
+                                        <?php echo form_error('lname', '<small><span style="color:red;font-size: small">', '</strong></small><br>'); ?>
+                                    
                                     </div>
                                     <div class="form-group mb-4">
                                         <label class="col-sm-12">Gender</label>
@@ -255,7 +259,7 @@
                                     <div class="form-group mb-4">
                                         <label for="example-email" class="col-md-12 p-0">Email</label>
                                         <div class="col-md-12 border-bottom p-0">
-                                            <input type="email" name="email" value="<?php echo $user['email']; ?>"
+                                            <input type="email" name="email" disabled value="<?php echo $user['email']; ?>"
                                                 class="form-control p-0 border-0" name="example-email"
                                                 id="example-email">
                                         </div>
@@ -266,6 +270,7 @@
                                             <input type="text" name="mobile" value="<?php echo $user['mobile']; ?>"
                                                 class="form-control p-0 border-0">
                                         </div>
+    							        <?php echo form_error('mobile', '<small><span style="color:red;font-size: small">', '</strong></small><br>'); ?>
                                     </div>
                                     <div class="form-group" style="margin:0">
                                         <div class="col-sm-12">

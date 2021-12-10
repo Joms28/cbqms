@@ -65,6 +65,7 @@ class Employee extends CI_Controller {
     if (isset($_POST['editProfile'])) {
       $this->form_validation->set_rules('fname', 'First Name', 'trim|required|min_length[2]');
       $this->form_validation->set_rules('lname', 'Last Name', 'trim|required|min_length[2]');
+      $this->form_validation->set_rules('mobile', 'Mobile No.', 'trim|min_length[11]|max_length[11]');
       $this->form_validation->set_rules('email', 'Email Address', 'trim|required|min_length[2]');
 
   		if ($this->form_validation->run() == FALSE)
@@ -74,7 +75,7 @@ class Employee extends CI_Controller {
   		else
   		{
   			$this->main->user_update($session_id);
-
+        
         $this->session->set_flashdata('respond-profile', 'Your profile is successfully updated.');
 
   			redirect(base_url() . "employee-profile");
