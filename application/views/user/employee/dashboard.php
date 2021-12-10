@@ -262,18 +262,20 @@
                                     <span style="font-size:20px;color:#26B0CF"><?= $cashier_priority['assigned_queue_num']; ?></span>
                                   </td>
                                   <td><center>      
-                                    <?php if($cashier_priority['status'] == 0){ ?>
-                                      <?php if($cashier_priority['agent_id'] == 0) { ?>
-                                        <?php if($counter2 == 0){ ?>
-                                          <a href="<?php echo base_url(); ?>employee-process-appointment/<?php echo $cashier_priority['id']; ?>" class="btn btn-info btn-sm" style="color:white"><b>PROCESS APPOINTMENT</b></a>
-                                        <?php } else {?>                                                                       
+                                    <?php if($data_priorities){ ?>
+                                      <?php if($cashier_priority['status'] == 0){ ?>
+                                        <?php if($cashier_priority['agent_id'] == 0) { ?>
+                                          <?php if($counter2 == 0){ ?>
+                                            <a href="<?php echo base_url(); ?>employee-process-appointment/<?php echo $cashier_priority['id']; ?>" class="btn btn-info btn-sm" style="color:white"><b>PROCESS APPOINTMENT</b></a>
+                                          <?php } else {?>                                                                       
+                                            <span style="font-size:20px;color:#26B0CF">Waiting</span></center>
+                                          <?php } ?>
+                                        <?php } else { ?>                                        
                                           <span style="font-size:20px;color:#26B0CF">Waiting</span></center>
-                                        <?php } ?>
+                                        <?php } ?>                                    
                                       <?php } else { ?>                                        
-                                        <span style="font-size:20px;color:#26B0CF">Waiting</span></center>
-                                      <?php } ?>                                    
-                                    <?php } else { ?>                                        
-                                      <a href="<?php echo base_url(); ?>employee-process-appointment/<?php echo $cashier_priority['id']; ?>" class="btn btn-info btn-sm" style="color:white"><b>PROCESS APPOINTMENT</b></a>
+                                        <a href="<?php echo base_url(); ?>employee-process-appointment/<?php echo $cashier_priority['id']; ?>" class="btn btn-info btn-sm" style="color:white"><b>PROCESS APPOINTMENT</b></a>
+                                      <?php } ?>
                                     <?php } ?>
                                   </center></td>
                                 </tr>
@@ -336,28 +338,30 @@
                               </thead>
                             <tbody>
                             <?php $counter4 = 0; ?>
-                              <?php foreach($data_priorities as $registrar_priority) { ?>
-                                <tr>
-                                  <td>
-                                    <span style="font-size:20px;color:#26B0CF"><?= $registrar_priority['assigned_queue_num']; ?></span>
-                                  </td>
-                                  <td><center>           
-                                    <?php if($registrar_priority['status'] == 0){ ?>                       
-                                      <?php if($registrar_priority['agent_id'] == 0) { ?>
-                                        <?php if($counter4 == 0){ ?>
-                                          <a href="<?php echo base_url(); ?>employee-process-appointment/<?php echo $registrar_priority['id']; ?>" class="btn btn-info btn-sm" style="color:white"><b>PROCESS APPOINTMENT</b></a>                                        
-                                        <?php } else {?>                                                                       
+                              <?php if($data_priorities){ ?>
+                                <?php foreach($data_priorities as $registrar_priority) { ?>
+                                  <tr>
+                                    <td>
+                                      <span style="font-size:20px;color:#26B0CF"><?= $registrar_priority['assigned_queue_num']; ?></span>
+                                    </td>
+                                    <td><center>           
+                                      <?php if($registrar_priority['status'] == 0){ ?>                       
+                                        <?php if($registrar_priority['agent_id'] == 0) { ?>
+                                          <?php if($counter4 == 0){ ?>
+                                            <a href="<?php echo base_url(); ?>employee-process-appointment/<?php echo $registrar_priority['id']; ?>" class="btn btn-info btn-sm" style="color:white"><b>PROCESS APPOINTMENT</b></a>                                        
+                                          <?php } else {?>                                                                       
+                                            <span style="font-size:20px;color:#26B0CF">Waiting</span></center>
+                                          <?php } ?>
+                                        <?php } else { ?>                                        
                                           <span style="font-size:20px;color:#26B0CF">Waiting</span></center>
                                         <?php } ?>
                                       <?php } else { ?>                                        
-                                        <span style="font-size:20px;color:#26B0CF">Waiting</span></center>
+                                        <a href="<?php echo base_url(); ?>employee-process-appointment/<?php echo $registrar_priority['id']; ?>" class="btn btn-info btn-sm" style="color:white"><b>PROCESS APPOINTMENT</b></a>
                                       <?php } ?>
-                                    <?php } else { ?>                                        
-                                      <a href="<?php echo base_url(); ?>employee-process-appointment/<?php echo $registrar_priority['id']; ?>" class="btn btn-info btn-sm" style="color:white"><b>PROCESS APPOINTMENT</b></a>
-                                    <?php } ?>
-                                  </center></td>
-                                </tr>
-                              <?php $counter4++; ?>
+                                    </center></td>
+                                  </tr>
+                                <?php $counter4++; ?>
+                                <?php } ?>
                               <?php } ?>
                             </tbody>
                           </table>
