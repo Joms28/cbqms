@@ -23,7 +23,7 @@ $route['admin/logout'] = 'Users/logout';
 
 $route['login'] = 'MainController/main_sign_in';
 $route['signup'] = 'MainController/main_sign_up';
-$route['forgot'] = 'MainController/MainController_forget_password';
+$route['forgot'] = 'MainController/main_forget_password';
 $route['forgot/verif/(:any)'] = 'MainController/MainController_forget_password_verification/$1';
 $route['forgot/change/(:any)'] = 'MainController/MainController_forget_change_password/$1';
 $route['walkin'] = 'MainController/walkin';
