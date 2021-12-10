@@ -37,17 +37,18 @@
     						</div>
     					<?php endif; ?>
 
+              <div class="form-group">
+    							<label>First Name</label>
+    							<input type="text" class="form-control" name="fname" placeholder="(optional)">
+    							<?php echo form_error('fname', '<small><span style="color:red;font-size: small">', '</strong></small><br>'); ?>
+    						</div>
+                
     						<div class="form-group">
     							<label>Last Name</label>
     							<input type="text" class="form-control" name="lname" value="" placeholder="(optional)" >
     							<?php echo form_error('lname', '<small><span style="color:red;font-size: small">', '</strong></small><br>'); ?>
     						</div>
 
-                <div class="form-group">
-    							<label>First Name</label>
-    							<input type="text" class="form-control" name="fname" placeholder="(optional)">
-    							<?php echo form_error('fname', '<small><span style="color:red;font-size: small">', '</strong></small><br>'); ?>
-    						</div>
 
                 <input type="hidden" name="email" value="default-email@g.com">
 

@@ -9,9 +9,7 @@ class MainController extends CI_Controller {
 
   public function walkin() {
     
-    $this->form_validation->set_rules('fname', 'First Name', 'required|trim|min_length[2]');
-    $this->form_validation->set_rules('lname', 'Last Name', 'required|trim|min_length[2]');
-    $this->form_validation->set_rules('mobile', 'Mobile Number', 'required|trim|min_length[11]|max_length[11]');
+    $this->form_validation->set_rules('fname', 'First Name', 'trim');
 
 		if ($this->form_validation->run() == FALSE)
 		{
