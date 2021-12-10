@@ -292,7 +292,14 @@ class Main extends CI_Model {
 
   public function get_dashboard_priority_data() {
 
-    $query = $this->db->where('priority_status', 1)->where('sched_date', date("F j, Y"))->get('transactions');
+    $user_level = $this->session->user_level;   
+
+    if($user_level < 3){
+      $query = $this->db->where('priority_status', 1)->where('transaction_type',$user_level)->where('sched_date', date("F j, Y"))->get('transactions');
+    }
+    else{
+      $query = $this->db->where('priority_status', 1)->where('sched_date', date("F j, Y"))->get('transactions');
+    }
 
     return $query->result_array();
 
