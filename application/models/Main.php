@@ -598,7 +598,8 @@ class Main extends CI_Model {
       $this->db->where('transaction_type',$transaction_type); // no transaction type filter by default
     }
 
-    $this->db->where('status',0)->where('closed',0);    
+    $this->db->where('status',0);
+    $this->db->where('closed',0);    
     $this->db->order_by('queue_num','ASC');
 
     $pending_transactions = $this->db->get('transactions')->result_array();
