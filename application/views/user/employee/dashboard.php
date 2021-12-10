@@ -342,7 +342,7 @@
                                     <span style="font-size:20px;color:#26B0CF"><?= $registrar_priority['assigned_queue_num']; ?></span>
                                   </td>
                                   <td><center>           
-                                    <?php if($cashier_priority['status'] == 0){ ?>                       
+                                    <?php if($registrar_priority['status'] == 0){ ?>                       
                                       <?php if($registrar_priority['agent_id'] == 0) { ?>
                                         <?php if($counter4 == 0){ ?>
                                           <a href="<?php echo base_url(); ?>employee-process-appointment/<?php echo $registrar_priority['id']; ?>" class="btn btn-info btn-sm" style="color:white"><b>PROCESS APPOINTMENT</b></a>                                        
