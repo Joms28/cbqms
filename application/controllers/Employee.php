@@ -58,7 +58,6 @@ class Employee extends CI_Controller {
   }
 
   public function profile() {    
-
     $session_id = $this->session->userdata('user_id');
     $data['user'] = $this->main->user_walkin_get_user($session_id);
 
@@ -67,7 +66,6 @@ class Employee extends CI_Controller {
       $this->form_validation->set_rules('lname', 'Last Name', 'trim|required|min_length[2]');
       $this->form_validation->set_rules('mobile', 'Mobile No.', 'trim|min_length[11]|max_length[11]');
       $this->form_validation->set_rules('email', 'Email Address', 'trim|required|min_length[2]');
-
   		if ($this->form_validation->run() == FALSE)
   		{
         $this->load->view("user/employee/profile", $data);
