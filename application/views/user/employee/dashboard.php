@@ -92,7 +92,14 @@
                                 <span class="hide-menu">Logs</span>
                             </a>
                         </li>
-
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="<?php echo base_url() . "employee-eod"; ?>"
+                                aria-expanded="false">
+                                <i class="fas fa-sync" aria-hidden="true"></i>
+                                <span class="hide-menu">EOD</span>
+                            </a>
+                        </li>
+                            
                         <li class="text-center p-20 upgrade-btn">
                             <a href="<?php echo base_url() . "employee-logout"; ?>"
                                 class="btn d-grid btn-danger text-white">
@@ -256,14 +263,13 @@
                               </thead>
                             <tbody>                              
                               <?php $counter2 = 0; ?>
-                              <?php if($data_priorities){ ?>
                               <?php foreach($data_priorities as $cashier_priority) { ?>
                                 <tr>
                                   <td>
                                     <span style="font-size:20px;color:#26B0CF"><?= $cashier_priority['assigned_queue_num']; ?></span>
                                   </td>
                                   <td><center>      
-                                    
+                                    <?php if($data_priorities){ ?>
                                       <?php if($cashier_priority['status'] == 0){ ?>
                                         <?php if($cashier_priority['agent_id'] == 0) { ?>
                                           <?php if($counter2 == 0){ ?>
@@ -303,7 +309,7 @@
                               </thead>
                             <tbody>
                             <?php $counter3 = 0; ?>
-                              <?php foreach($data_registrars as $registrar) { ?>
+                              <?php foreach($data_registrars as $registrar) { ?>                                
                                 <tr>
                                   <td>
                                     <span style="font-size:20px;color:#26B0CF"><?= $registrar['assigned_queue_num']; ?></span>

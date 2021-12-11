@@ -107,6 +107,10 @@ class Employee extends CI_Controller {
 
   }
 
+  public function eod() {
+    $this->main->eod_check_pending($this->session->userdata('user_level'));
+  }
+
   public function processAppointment($id) {
 
     if($this->session->userdata('user_level') != null) {

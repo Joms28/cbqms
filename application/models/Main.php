@@ -605,7 +605,7 @@ class Main extends CI_Model {
 
     if($pending_transactions){      
       foreach($pending_transactions as $transaction){
-        //set pending
+        set_transaction_as_pending($transaction['id']);
       }
     }
   }

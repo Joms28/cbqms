@@ -57,6 +57,7 @@ $route['employee-appointment/(:any)/cancel'] = 'Employee/processCancel/$1';
 $route['employee-process-appointment/(:any)'] = 'Employee/processAppointment/$1';
 $route['employee-profile'] = 'Employee/profile';
 $route['employee-log'] = 'Employee/log';
+$route['employee-eod'] = 'Employee/eod';
 $route['employee-logout'] = 'Employee/logout';
 
 
