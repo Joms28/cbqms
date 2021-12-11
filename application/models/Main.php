@@ -603,7 +603,7 @@ class Main extends CI_Model {
     }
     $this->db->where('status',0);
     $this->db->where('closed',0);    
-    $this->db->order_by('assigned_queue_num','ASC');
+    
 
     $pending_transactions = $this->db->get('transactions')->result_array();
 

@@ -415,7 +415,7 @@
                                         </div>
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-secondary text-white" data-dismiss="modal">No</button>
-                                          <a  href="<?php echo base_url() . "employee-log"; ?>"class="btn btn-info" style="color:white">Yes</a>
+                                          <a  href="<?php echo base_url() . "employee-eod"; ?>"class="btn btn-info" style="color:white">Yes</a>
                                         </div>
                                       </div>
                                     </div>
