@@ -276,7 +276,7 @@ class Main extends CI_Model {
 
   public function get_dashboard_cashier_data() {
 
-    $query = $this->db->where('priority_status', 0)->where('transaction_type', 1)->where('status',0)->where('closed',0)->where('sched_date', date("F j, Y"))->get('transactions');
+    $query = $this->db->where('priority_status', 1)->where('transaction_type', 1)->where('status',0)->where('closed',0)->where('sched_date', date("F j, Y"))->get('transactions');
 
     return $query->result_array();
 
@@ -284,7 +284,7 @@ class Main extends CI_Model {
 
   public function get_dashboard_registrar_data() {
 
-    $query = $this->db->where('priority_status', 0)->where('transaction_type', 2)->where('status',0)->where('closed',0)->where('sched_date', date("F j, Y"))->get('transactions');
+    $query = $this->db->where('priority_status', 1)->where('transaction_type', 2)->where('status',0)->where('closed',0)->where('sched_date', date("F j, Y"))->get('transactions');
 
     return $query->result_array();
 

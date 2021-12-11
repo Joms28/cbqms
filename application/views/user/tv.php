@@ -220,6 +220,7 @@
                       <?php
                       $i = 1;
                       $j = 1;
+                      
                      if($data_priorities){ 
                       foreach($data_priorities as $cashier) {
 
