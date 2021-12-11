@@ -317,7 +317,8 @@ class Main extends CI_Model {
     if($user_level < 3){
       $query1 = $this->db->where('priority_status', 1)->where('closed',0)->where('transaction_type',$user_level)->where('sched_date', date("F j, Y"))->limit(4)->get('transactions')->result_array();      
       $query2 = $this->db->where('status',5)->where('closed',0)->where('transaction_type',$user_level)->where('reschedule_date',date("F j, Y"))->limit(1)->get('transactions')->result_array();
-
+      $query3 = $this->db->where('priority_status', 1)->where('closed',0)->where('sched_date', date("F j, Y"))->limit(4)->get('transactions')->result_array();      
+     
       $query = NULL;
       if($query1){
         $query = $query1;
@@ -325,12 +326,14 @@ class Main extends CI_Model {
           $query = array_merge($query1,$query2);
         }
       }
-      else{
-        if($query2){
+      else if($query2){
           $query = $query2;
-        }
       }
-      
+      else if($query3){
+          $query = $query3;
+        
+      }
+      return $query;
     }
     else{
       $query = $this->db->where('priority_status', 1)->where('closed',0)->where('sched_date', date("F j, Y"))->get('transactions')->result_array();
