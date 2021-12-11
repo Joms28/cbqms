@@ -230,6 +230,30 @@
         <!-- ============================================================== -->
     </div>
     
+    <script type="text/javascript">
+    $(document).ready( function () {
+        $('#table_id').DataTable();
+    } );
+    </script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="<?php echo base_url() . "assets/new/"; ?>bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="<?php echo base_url() . "assets/new/"; ?>js/app-style-switcher.js"></script>
+    <script src="<?php echo base_url() . "assets/new/"; ?>plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"></script>
+    <!--Wave Effects -->
+    <script src="<?php echo base_url() . "assets/new/"; ?>js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="<?php echo base_url() . "assets/new/"; ?>js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="<?php echo base_url() . "assets/new/"; ?>js/custom.js"></script>
+    <!--This page JavaScript -->
+    <!--chartis chart-->
+    <script src="<?php echo base_url() . "assets/new/"; ?>plugins/bower_components/chartist/dist/chartist.min.js"></script>
+    <script src="<?php echo base_url() . "assets/new/"; ?>plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+    <script src="<?php echo base_url() . "assets/new/"; ?>js/pages/dashboards/dashboard1.js"></script>
+</body>
+
+</html>
+
     <div class="modal fade" id="eod_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                       <div class="modal-content">
@@ -255,13 +279,34 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script src="<?php echo base_url() . "assets/new/"; ?>plugins/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="<?php echo base_url() . "assets/new/"; ?>bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="<?php echo base_url() . "assets/new/"; ?>js/app-style-switcher.js"></script>
+    <script src="<?php echo base_url() . "assets/new/"; ?>plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"></script>
+    <!--Wave Effects -->
+    <script src="<?php echo base_url() . "assets/new/"; ?>js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="<?php echo base_url() . "assets/new/"; ?>js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="<?php echo base_url() . "assets/new/"; ?>js/custom.js"></script>
+    <!--This page JavaScript -->
+    <!--chartis chart-->
+    <script src="<?php echo base_url() . "assets/new/"; ?>plugins/bower_components/chartist/dist/chartist.min.js"></script>
+    <script src="<?php echo base_url() . "assets/new/"; ?>plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+    <script src="<?php echo base_url() . "assets/new/"; ?>js/pages/dashboards/dashboard1.js"></script>
+
+   <!-- <script src="<?php echo base_url() . "assets/new/"; ?>plugins/bower_components/jquery/dist/jquery.min.js"></script>-->
     <script src="<?php echo base_url() . "assets/new/"; ?>js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="<?php echo base_url() . "assets/new/"; ?>js/custom.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="<?php echo base_url() . "assets/new/"; ?>plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js"></script>
     
+    <script type="text/javascript">
+    $(document).ready( function () {
+        $('#table_id').DataTable();
+    } );
+    </script>
     <script>
       
       $("#opn").click(function(){
