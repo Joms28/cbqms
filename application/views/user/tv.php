@@ -220,7 +220,6 @@
                       <?php
                       $i = 1;
                       $j = 1;
-                      if(isset($data_priorities)){
                       foreach($data_priorities as $cashier) {
 
                         if($cashier['closed'] == 0 && $j <= 5 && $cashier['transaction_type'] == 1) {
@@ -275,7 +274,6 @@
                         $j++;
                         }
                         $i++;
-                      }
                       }
                       ?>
                     </tbody>
