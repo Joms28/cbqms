@@ -291,6 +291,7 @@ class Main extends CI_Model {
   }
 
   public function set_transaction_as_pending($transaction_id){
+    
     $transaction = $this->db->where('id',$transaction_id)->get('transactions')->row_array();
     $pending = array(
       'transaction_id' => $transaction_id,
@@ -605,7 +606,23 @@ class Main extends CI_Model {
 
     if($pending_transactions){      
       foreach($pending_transactions as $transaction){
-        set_transaction_as_pending($transaction['id']);
+        
+        $transaction = $this->db->where('id',$transaction['id'])->get('transactions')->row_array();
+        $pending = array(
+          'transaction_id' => $transaction['id'],
+          'queue_num' => $transaction['assigned_queue_num'],
+          'status' => $transaction['status'],
+          'closed' => $transaction['closed'],
+          'expires_at' => $transaction['expires_at']
+        );
+        $this->db->insert('pending_transactions',$pending);
+        if(intval($transaction['days_lapsed']) < 2){
+          $this->db->where('id',$transaction['id'])->update('transactions',array('status' => 5,'agent_id' => 0, 'reschedule_date' => date("F j, Y",time() + 86400), 'days_lapsed' => intval($transaction['days_lapsed']) + 1));
+          $this->db->where('transaction_id',$transaction['id'])->update('transaction_calls',array('call_count' => 0));
+        }
+        else{
+          $this->db->where('id',$transaction['id'])->update('transactions',array('status' => 4,'agent_id' => 0));
+        }    
       }
     }
   }
